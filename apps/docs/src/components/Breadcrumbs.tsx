@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
 interface BreadcrumbItem {
@@ -27,10 +27,10 @@ const pathLabels: Record<string, string> = {
  * Automatically generates breadcrumb trail from current path.
  */
 export function Breadcrumbs() {
-	const router = useRouter();
+	const pathname = usePathname();
 
 	const breadcrumbs = useMemo(() => {
-		const pathParts = router.asPath.split("/").filter(Boolean);
+		const pathParts = (pathname || "").split("/").filter(Boolean);
 		const items: BreadcrumbItem[] = [{ label: "Docs", href: "/" }];
 
 		let currentPath = "";
@@ -46,7 +46,7 @@ export function Breadcrumbs() {
 		}
 
 		return items;
-	}, [router.asPath]);
+	}, [pathname]);
 
 	if (breadcrumbs.length <= 1) {
 		return null;
