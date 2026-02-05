@@ -54,9 +54,7 @@ export const KeyboardNavigation: StoryObj = {
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<Button onClick={() => alert("Button activated!")}>
-								Focus me and press Enter
-							</Button>
+							<Button onClick={() => alert("Button activated!")}>Focus me and press Enter</Button>
 						</CardContent>
 					</Card>
 				</div>
@@ -189,9 +187,7 @@ export const AriaAttributes: StoryObj = {
 									Processing...
 								</Button>
 							</div>
-							<Caption>
-								Screen readers announce &quot;busy&quot; state during loading
-							</Caption>
+							<Caption>Screen readers announce &quot;busy&quot; state during loading</Caption>
 						</CardContent>
 					</Card>
 
@@ -236,9 +232,7 @@ export const AriaAttributes: StoryObj = {
 									placeholder="Enter username"
 									aria-describedby="username-help"
 								/>
-								<Caption id="username-help">
-									3-20 characters, letters and numbers only
-								</Caption>
+								<Caption id="username-help">3-20 characters, letters and numbers only</Caption>
 							</div>
 						</CardContent>
 					</Card>
@@ -319,9 +313,7 @@ export const ScreenReaderBehavior: StoryObj = {
 									</svg>
 								</Button>
 							</div>
-							<Caption>
-								Each button has an aria-label describing its action
-							</Caption>
+							<Caption>Each button has an aria-label describing its action</Caption>
 						</CardContent>
 					</Card>
 

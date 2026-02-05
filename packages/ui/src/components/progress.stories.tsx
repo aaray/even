@@ -28,8 +28,7 @@ const meta = {
 		layout: "centered",
 		docs: {
 			description: {
-				component:
-					"A progress bar component for displaying completion status or loading progress.",
+				component: "A progress bar component for displaying completion status or loading progress.",
 			},
 		},
 	},
@@ -115,9 +114,7 @@ export const Animated: Story = {
 		return (
 			<div className="w-[400px] space-y-2">
 				<Progress value={progress} />
-				<p className="text-sm text-muted-foreground text-center">
-					{progress}% complete
-				</p>
+				<p className="text-sm text-muted-foreground text-center">{progress}% complete</p>
 			</div>
 		);
 	},

@@ -30,8 +30,7 @@ const meta = {
 		layout: "centered",
 		docs: {
 			description: {
-				component:
-					"A checkbox component built on Radix UI primitives with EVEN styling.",
+				component: "A checkbox component built on Radix UI primitives with EVEN styling.",
 			},
 		},
 	},

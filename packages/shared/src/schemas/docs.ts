@@ -18,12 +18,7 @@ export type BaseFrontmatter = z.infer<typeof baseFrontmatterSchema>;
 /**
  * Documentation page categories
  */
-export const documentationCategorySchema = z.enum([
-	"architecture",
-	"adr",
-	"manual",
-	"api",
-]);
+export const documentationCategorySchema = z.enum(["architecture", "adr", "manual", "api"]);
 
 export type DocumentationCategory = z.infer<typeof documentationCategorySchema>;
 
@@ -41,12 +36,7 @@ export type DocumentationPage = z.infer<typeof documentationPageSchema>;
 /**
  * ADR status values
  */
-export const adrStatusSchema = z.enum([
-	"proposed",
-	"accepted",
-	"deprecated",
-	"superseded",
-]);
+export const adrStatusSchema = z.enum(["proposed", "accepted", "deprecated", "superseded"]);
 
 export type ADRStatus = z.infer<typeof adrStatusSchema>;
 
@@ -74,7 +64,7 @@ export const adrSchema = adrFrontmatterSchema.refine(
 	{
 		message: "supersededBy is required when status is 'superseded'",
 		path: ["supersededBy"],
-	},
+	}
 );
 
 export type ADRFrontmatter = z.infer<typeof adrFrontmatterSchema>;
@@ -82,11 +72,7 @@ export type ADRFrontmatter = z.infer<typeof adrFrontmatterSchema>;
 /**
  * User manual difficulty levels
  */
-export const manualDifficultySchema = z.enum([
-	"beginner",
-	"intermediate",
-	"advanced",
-]);
+export const manualDifficultySchema = z.enum(["beginner", "intermediate", "advanced"]);
 
 export type ManualDifficulty = z.infer<typeof manualDifficultySchema>;
 

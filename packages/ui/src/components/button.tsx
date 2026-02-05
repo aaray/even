@@ -41,14 +41,7 @@ const Spinner = ({ className }: { className?: string }) => (
 		viewBox="0 0 24 24"
 		aria-hidden="true"
 	>
-		<circle
-			className="opacity-25"
-			cx="12"
-			cy="12"
-			r="10"
-			stroke="currentColor"
-			strokeWidth="4"
-		/>
+		<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
 		<path
 			className="opacity-75"
 			fill="currentColor"
@@ -65,7 +58,10 @@ export interface ButtonProps
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, asChild = false, loading = false, children, disabled, ...props }, ref) => {
+	(
+		{ className, variant, size, asChild = false, loading = false, children, disabled, ...props },
+		ref
+	) => {
 		const Comp = asChild ? Slot : "button";
 		return (
 			<Comp

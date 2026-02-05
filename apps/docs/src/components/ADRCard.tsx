@@ -35,9 +35,7 @@ export function ADRCard({
 			<div className="flex items-start justify-between gap-4">
 				<div className="flex-1 min-w-0">
 					<div className="flex items-center gap-2 mb-1">
-						<span className="text-zinc-500 font-mono text-sm">
-							ADR-{formattedNumber}
-						</span>
+						<span className="text-zinc-500 font-mono text-sm">ADR-{formattedNumber}</span>
 						<ADRStatusBadge status={status} />
 					</div>
 					<h3 className="font-semibold text-zinc-100 group-hover:text-purple-400 transition-colors truncate">
@@ -47,10 +45,7 @@ export function ADRCard({
 					{tags.length > 0 && (
 						<div className="flex flex-wrap gap-1 mt-2">
 							{tags.map((tag) => (
-								<span
-									key={tag}
-									className="px-2 py-0.5 text-xs bg-zinc-800 text-zinc-400 rounded"
-								>
+								<span key={tag} className="px-2 py-0.5 text-xs bg-zinc-800 text-zinc-400 rounded">
 									{tag}
 								</span>
 							))}

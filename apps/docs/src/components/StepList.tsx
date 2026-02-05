@@ -19,11 +19,7 @@ interface StepItemProps extends Step {
  * Container for a numbered list of steps.
  */
 export function StepList({ children }: StepListProps) {
-	return (
-		<ol className="space-y-6 my-6 list-none pl-0">
-			{children}
-		</ol>
-	);
+	return <ol className="space-y-6 my-6 list-none pl-0">{children}</ol>;
 }
 
 /**

@@ -69,12 +69,7 @@ export type ArchitectureDiagram = z.infer<typeof architectureDiagramSchema>;
 // ADR (Architecture Decision Record) Schema
 // =============================================================================
 
-export const adrStatusSchema = z.enum([
-	"proposed",
-	"accepted",
-	"deprecated",
-	"superseded",
-]);
+export const adrStatusSchema = z.enum(["proposed", "accepted", "deprecated", "superseded"]);
 
 export const adrAlternativeSchema = z.object({
 	name: z.string(),
@@ -108,7 +103,7 @@ export const adrSchema = adrFrontmatterSchema.refine(
 	{
 		message: "supersededBy is required when status is 'superseded'",
 		path: ["supersededBy"],
-	},
+	}
 );
 
 export type ADR = z.infer<typeof adrSchema>;
@@ -117,11 +112,7 @@ export type ADR = z.infer<typeof adrSchema>;
 // User Manual Schema
 // =============================================================================
 
-export const manualDifficultySchema = z.enum([
-	"beginner",
-	"intermediate",
-	"advanced",
-]);
+export const manualDifficultySchema = z.enum(["beginner", "intermediate", "advanced"]);
 
 export const manualStepSchema = z.object({
 	number: z.number().int().positive(),
@@ -149,13 +140,7 @@ export type UserManual = z.infer<typeof userManualFrontmatterSchema>;
 // API Endpoint Schema (for manual enhancements)
 // =============================================================================
 
-export const httpMethodSchema = z.enum([
-	"GET",
-	"POST",
-	"PUT",
-	"DELETE",
-	"PATCH",
-]);
+export const httpMethodSchema = z.enum(["GET", "POST", "PUT", "DELETE", "PATCH"]);
 
 export const apiEndpointEnhancementSchema = z.object({
 	path: z.string().startsWith("/"),
@@ -169,14 +154,12 @@ export const apiEndpointEnhancementSchema = z.object({
 				description: z.string(),
 				request: z.unknown().optional(),
 				response: z.unknown().optional(),
-			}),
+			})
 		)
 		.optional(),
 });
 
-export type APIEndpointEnhancement = z.infer<
-	typeof apiEndpointEnhancementSchema
->;
+export type APIEndpointEnhancement = z.infer<typeof apiEndpointEnhancementSchema>;
 
 // =============================================================================
 // Search Index Schema

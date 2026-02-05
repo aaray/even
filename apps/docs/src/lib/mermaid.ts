@@ -127,10 +127,7 @@ export async function initializeMermaid(): Promise<void> {
  * @param id - Optional unique ID for the diagram
  * @returns The rendered SVG string
  */
-export async function renderDiagram(
-	source: string,
-	id?: string,
-): Promise<string> {
+export async function renderDiagram(source: string, id?: string): Promise<string> {
 	const mermaid = (await import("mermaid")).default;
 	const diagramId = id || `mermaid-${Math.random().toString(36).substr(2, 9)}`;
 	const { svg } = await mermaid.render(diagramId, source);

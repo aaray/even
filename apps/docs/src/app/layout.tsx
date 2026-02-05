@@ -27,12 +27,7 @@ export default async function RootLayout({
 			</Head>
 			<body>
 				<Layout
-					navbar={
-						<Navbar
-							logo={logo}
-							projectLink="https://github.com/aaray/even"
-						/>
-					}
+					navbar={<Navbar logo={logo} projectLink="https://github.com/aaray/even" />}
 					footer={
 						<Footer>
 							{new Date().getFullYear()} ©{" "}

@@ -30,8 +30,7 @@ const meta = {
 		layout: "centered",
 		docs: {
 			description: {
-				component:
-					"A toggle switch component built on Radix UI primitives for binary choices.",
+				component: "A toggle switch component built on Radix UI primitives for binary choices.",
 			},
 		},
 	},

@@ -10,7 +10,11 @@ const meta: Meta = {
 export default meta;
 
 // Color Tokens Story
-const ColorSwatch = ({ name, variable, className }: { name: string; variable: string; className?: string }) => (
+const ColorSwatch = ({
+	name,
+	variable,
+	className,
+}: { name: string; variable: string; className?: string }) => (
 	<div className="flex items-center gap-4">
 		<div className={`w-16 h-16 rounded-lg border border-border ${className}`} />
 		<div>
@@ -28,7 +32,11 @@ export const Colors: StoryObj = {
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 					<ColorSwatch name="Background" variable="--background" className="bg-background" />
 					<ColorSwatch name="Surface/Card" variable="--card" className="bg-card" />
-					<ColorSwatch name="Elevated" variable="--elevated" className="bg-[hsl(var(--elevated))]" />
+					<ColorSwatch
+						name="Elevated"
+						variable="--elevated"
+						className="bg-[hsl(var(--elevated))]"
+					/>
 					<ColorSwatch name="Muted" variable="--muted" className="bg-muted" />
 				</div>
 			</section>
@@ -37,7 +45,11 @@ export const Colors: StoryObj = {
 				<h2 className="text-2xl font-bold text-foreground mb-4">Foreground Colors</h2>
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 					<ColorSwatch name="Foreground" variable="--foreground" className="bg-foreground" />
-					<ColorSwatch name="Muted Foreground" variable="--muted-foreground" className="bg-muted-foreground" />
+					<ColorSwatch
+						name="Muted Foreground"
+						variable="--muted-foreground"
+						className="bg-muted-foreground"
+					/>
 				</div>
 			</section>
 
@@ -67,7 +79,11 @@ export const Colors: StoryObj = {
 					<ColorSwatch name="Music" variable="--even-music" className="bg-even-music" />
 					<ColorSwatch name="Video" variable="--even-video" className="bg-even-video" />
 					<ColorSwatch name="Merch" variable="--even-merch" className="bg-even-merch" />
-					<ColorSwatch name="Experience" variable="--even-experience" className="bg-even-experience" />
+					<ColorSwatch
+						name="Experience"
+						variable="--even-experience"
+						className="bg-even-experience"
+					/>
 				</div>
 			</section>
 
@@ -99,7 +115,9 @@ export const Spacing: StoryObj = {
 		<div className="space-y-8">
 			<section>
 				<h2 className="text-2xl font-bold text-foreground mb-4">Spacing Scale</h2>
-				<p className="text-muted-foreground mb-6">Based on 4px base unit. Use for margins, padding, and gaps.</p>
+				<p className="text-muted-foreground mb-6">
+					Based on 4px base unit. Use for margins, padding, and gaps.
+				</p>
 				<div className="space-y-2">
 					<SpacingSwatch name="0" size="0" pixels="0px" />
 					<SpacingSwatch name="1" size="0.25rem" pixels="4px" />
@@ -181,13 +199,15 @@ export const Typography: StoryObj = {
 					<div>
 						<p className="text-xs text-muted-foreground mb-1">text-sm / 14px / Normal</p>
 						<p className="text-sm text-foreground">
-							Small body text - The quick brown fox jumps over the lazy dog. Use for secondary content.
+							Small body text - The quick brown fox jumps over the lazy dog. Use for secondary
+							content.
 						</p>
 					</div>
 					<div>
 						<p className="text-xs text-muted-foreground mb-1">text-xs / 12px / Normal</p>
 						<p className="text-xs text-foreground">
-							Caption text - The quick brown fox jumps over the lazy dog. Use for labels and captions.
+							Caption text - The quick brown fox jumps over the lazy dog. Use for labels and
+							captions.
 						</p>
 					</div>
 				</div>

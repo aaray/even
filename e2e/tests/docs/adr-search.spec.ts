@@ -8,7 +8,7 @@ test.describe("ADR Index and Search", () => {
 	test("should display ADR index page", async ({ page }) => {
 		// Should have ADR heading
 		await expect(
-			page.getByRole("heading", { name: /architecture decision records/i }),
+			page.getByRole("heading", { name: /architecture decision records/i })
 		).toBeVisible();
 	});
 
@@ -27,7 +27,7 @@ test.describe("ADR Index and Search", () => {
 	test("should display ADR status badges", async ({ page }) => {
 		// Look for status indicators
 		const statusBadges = page.locator(
-			'[data-testid="adr-status"], .adr-status-badge, span:has-text("accepted"), span:has-text("proposed")',
+			'[data-testid="adr-status"], .adr-status-badge, span:has-text("accepted"), span:has-text("proposed")'
 		);
 		await expect(statusBadges.first()).toBeVisible({ timeout: 5000 });
 	});
@@ -59,7 +59,7 @@ test.describe("ADR Index and Search", () => {
 			await searchInput.fill("nextra");
 
 			// Should show search results
-			const results = page.locator('[data-search-results], .search-results');
+			const results = page.locator("[data-search-results], .search-results");
 			await expect(results).toBeVisible({ timeout: 5000 });
 		}
 	});

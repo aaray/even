@@ -209,8 +209,8 @@ export const ResponsiveExample: StoryObj = {
 				Responsive Heading
 			</Heading>
 			<Text className="text-sm md:text-base lg:text-lg">
-				This text scales up at different breakpoints. On mobile it&apos;s small, on tablet
-				it&apos;s base size, and on desktop it&apos;s large.
+				This text scales up at different breakpoints. On mobile it&apos;s small, on tablet it&apos;s
+				base size, and on desktop it&apos;s large.
 			</Text>
 		</div>
 	),

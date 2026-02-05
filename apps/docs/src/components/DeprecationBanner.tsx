@@ -70,10 +70,7 @@ export function DeprecationBanner({
 	const title = titles[type];
 
 	return (
-		<div
-			className={`my-6 rounded-lg border ${styles.border} ${styles.bg} p-4`}
-			role="alert"
-		>
+		<div className={`my-6 rounded-lg border ${styles.border} ${styles.bg} p-4`} role="alert">
 			<div className="flex items-start gap-3">
 				<AlertTriangle className={`h-5 w-5 ${styles.icon} flex-shrink-0 mt-0.5`} />
 				<div className="flex-1">

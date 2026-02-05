@@ -98,9 +98,7 @@ async function resolveInternalLink(href: string, sourceFile: string): Promise<bo
 	}
 
 	// Handle absolute paths (starting with /)
-	const targetPath = path.startsWith("/")
-		? join(DOCS_ROOT, path)
-		: join(dirname(sourceFile), path);
+	const targetPath = path.startsWith("/") ? join(DOCS_ROOT, path) : join(dirname(sourceFile), path);
 
 	// Try different extensions
 	const extensions = ["", ".mdx", ".md", "/index.mdx", "/index.md"];

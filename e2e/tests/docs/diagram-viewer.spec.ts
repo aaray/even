@@ -48,7 +48,7 @@ test.describe("DiagramViewer Interactivity", () => {
 		// Zoom should increase
 		const newZoom = await zoomDisplay.textContent();
 		expect(Number.parseInt(newZoom || "100")).toBeGreaterThan(
-			Number.parseInt(initialZoom || "100"),
+			Number.parseInt(initialZoom || "100")
 		);
 	});
 
@@ -67,9 +67,7 @@ test.describe("DiagramViewer Interactivity", () => {
 
 		// Zoom should decrease
 		const newZoom = await zoomDisplay.textContent();
-		expect(Number.parseInt(newZoom || "100")).toBeLessThan(
-			Number.parseInt(zoomedInLevel || "150"),
-		);
+		expect(Number.parseInt(newZoom || "100")).toBeLessThan(Number.parseInt(zoomedInLevel || "150"));
 	});
 
 	test("should reset zoom when clicking reset button", async ({ page }) => {
@@ -121,9 +119,7 @@ test.describe("DiagramViewer Interactivity", () => {
 		await expect(diagramViewer.locator("svg")).toBeVisible();
 	});
 
-	test("should handle diagram rendering errors gracefully", async ({
-		page,
-	}) => {
+	test("should handle diagram rendering errors gracefully", async ({ page }) => {
 		// This test verifies error handling exists
 		// In normal operation, diagrams should render successfully
 		const diagramViewer = page.locator(".diagram-viewer");

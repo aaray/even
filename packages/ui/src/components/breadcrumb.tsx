@@ -5,12 +5,7 @@ import { cn } from "../lib/utils.js";
 
 const Breadcrumb = forwardRef<HTMLElement, ComponentPropsWithoutRef<"nav">>(
 	({ className, ...props }, ref) => (
-		<nav
-			ref={ref}
-			aria-label="Breadcrumb"
-			className={cn("", className)}
-			{...props}
-		/>
+		<nav ref={ref} aria-label="Breadcrumb" className={cn("", className)} {...props} />
 	)
 );
 Breadcrumb.displayName = "Breadcrumb";
@@ -31,11 +26,7 @@ BreadcrumbList.displayName = "BreadcrumbList";
 
 const BreadcrumbItem = forwardRef<HTMLLIElement, ComponentPropsWithoutRef<"li">>(
 	({ className, ...props }, ref) => (
-		<li
-			ref={ref}
-			className={cn("inline-flex items-center gap-1.5", className)}
-			{...props}
-		/>
+		<li ref={ref} className={cn("inline-flex items-center gap-1.5", className)} {...props} />
 	)
 );
 BreadcrumbItem.displayName = "BreadcrumbItem";
@@ -44,11 +35,7 @@ const BreadcrumbLink = forwardRef<
 	HTMLAnchorElement,
 	ComponentPropsWithoutRef<"a"> & { asChild?: boolean }
 >(({ asChild, className, ...props }, ref) => (
-	<a
-		ref={ref}
-		className={cn("transition-colors hover:text-foreground", className)}
-		{...props}
-	/>
+	<a ref={ref} className={cn("transition-colors hover:text-foreground", className)} {...props} />
 ));
 BreadcrumbLink.displayName = "BreadcrumbLink";
 
@@ -96,10 +83,7 @@ const BreadcrumbSeparator = ({
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
-const BreadcrumbEllipsis = ({
-	className,
-	...props
-}: ComponentPropsWithoutRef<"span">) => (
+const BreadcrumbEllipsis = ({ className, ...props }: ComponentPropsWithoutRef<"span">) => (
 	<span
 		role="presentation"
 		aria-hidden="true"

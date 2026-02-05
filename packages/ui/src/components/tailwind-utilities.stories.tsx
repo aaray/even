@@ -120,7 +120,9 @@ export const SpacingUtilities: StoryObj = {
 		<div className="space-y-8">
 			<section>
 				<h2 className="text-2xl font-bold text-foreground mb-4">Gap Utilities</h2>
-				<p className="text-muted-foreground mb-6">Use gap-even-* utilities for consistent spacing in flex/grid layouts.</p>
+				<p className="text-muted-foreground mb-6">
+					Use gap-even-* utilities for consistent spacing in flex/grid layouts.
+				</p>
 
 				<div className="space-y-6">
 					<div>
@@ -231,7 +233,9 @@ export const ShadowUtilities: StoryObj = {
 		<div className="space-y-8">
 			<section>
 				<h2 className="text-2xl font-bold text-foreground mb-4">Shadow Utilities</h2>
-				<p className="text-muted-foreground mb-6">Use shadow-even-* utilities for consistent elevation.</p>
+				<p className="text-muted-foreground mb-6">
+					Use shadow-even-* utilities for consistent elevation.
+				</p>
 
 				<div className="grid grid-cols-2 md:grid-cols-5 gap-8 p-8">
 					<div className="text-center">
@@ -266,7 +270,9 @@ export const ShadowUtilities: StoryObj = {
 					</div>
 					<div className="bg-card rounded-lg p-6 shadow-even-md">
 						<h3 className="font-semibold text-foreground mb-2">Standard Card</h3>
-						<p className="text-muted-foreground text-sm">Uses shadow-even-md for normal elevation</p>
+						<p className="text-muted-foreground text-sm">
+							Uses shadow-even-md for normal elevation
+						</p>
 					</div>
 					<div className="bg-card rounded-lg p-6 shadow-even-glow">
 						<h3 className="font-semibold text-foreground mb-2">Highlighted Card</h3>
@@ -284,7 +290,9 @@ export const BorderRadiusUtilities: StoryObj = {
 		<div className="space-y-8">
 			<section>
 				<h2 className="text-2xl font-bold text-foreground mb-4">Border Radius Utilities</h2>
-				<p className="text-muted-foreground mb-6">Use rounded-* utilities for consistent corner radius.</p>
+				<p className="text-muted-foreground mb-6">
+					Use rounded-* utilities for consistent corner radius.
+				</p>
 
 				<div className="flex flex-wrap gap-6">
 					<div className="text-center">
@@ -331,7 +339,9 @@ export const AnimationUtilities: StoryObj = {
 		<div className="space-y-8">
 			<section>
 				<h2 className="text-2xl font-bold text-foreground mb-4">Animation Utilities</h2>
-				<p className="text-muted-foreground mb-6">Built-in animation utilities for common transitions.</p>
+				<p className="text-muted-foreground mb-6">
+					Built-in animation utilities for common transitions.
+				</p>
 
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 					<div className="text-center">

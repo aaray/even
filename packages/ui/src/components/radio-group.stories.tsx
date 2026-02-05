@@ -38,8 +38,7 @@ const meta = {
 		layout: "centered",
 		docs: {
 			description: {
-				component:
-					"A radio group component built on Radix UI primitives for single selection.",
+				component: "A radio group component built on Radix UI primitives for single selection.",
 			},
 		},
 	},

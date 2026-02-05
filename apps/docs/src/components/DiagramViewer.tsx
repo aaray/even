@@ -73,8 +73,7 @@ export function DiagramViewer({
 
 					// Add click handlers for node navigation
 					if (Object.keys(nodeLinks).length > 0) {
-						const nodes =
-							svgContainerRef.current.querySelectorAll(".node, .cluster");
+						const nodes = svgContainerRef.current.querySelectorAll(".node, .cluster");
 						for (const node of nodes) {
 							const nodeId = node.id || node.getAttribute("data-id");
 							if (nodeId && nodeLinks[nodeId]) {
@@ -129,7 +128,7 @@ export function DiagramViewer({
 				setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
 			}
 		},
-		[position],
+		[position]
 	);
 
 	const handleMouseMove = useCallback(
@@ -141,7 +140,7 @@ export function DiagramViewer({
 				});
 			}
 		},
-		[isDragging, dragStart],
+		[isDragging, dragStart]
 	);
 
 	const handleMouseUp = useCallback(() => {
@@ -150,9 +149,7 @@ export function DiagramViewer({
 
 	return (
 		<div className={`diagram-viewer ${className}`}>
-			{title && (
-				<h4 className="text-lg font-semibold mb-2 text-zinc-200">{title}</h4>
-			)}
+			{title && <h4 className="text-lg font-semibold mb-2 text-zinc-200">{title}</h4>}
 
 			{/* Zoom controls */}
 			<div className="flex items-center gap-2 mb-2">
@@ -231,9 +228,7 @@ export function DiagramViewer({
 			</div>
 
 			{Object.keys(nodeLinks).length > 0 && (
-				<p className="text-xs text-zinc-500 mt-2">
-					Click on components to view details
-				</p>
+				<p className="text-xs text-zinc-500 mt-2">Click on components to view details</p>
 			)}
 		</div>
 	);

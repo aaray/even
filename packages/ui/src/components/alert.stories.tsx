@@ -30,8 +30,7 @@ const meta = {
 		layout: "centered",
 		docs: {
 			description: {
-				component:
-					"An alert component for displaying important messages with semantic variants.",
+				component: "An alert component for displaying important messages with semantic variants.",
 			},
 		},
 	},

@@ -6,7 +6,7 @@ test.describe("ADR Status Display", () => {
 
 		// Should show accepted status
 		const statusBadge = page.locator(
-			'[data-testid="adr-status"], .adr-status-badge, span:has-text("accepted")',
+			'[data-testid="adr-status"], .adr-status-badge, span:has-text("accepted")'
 		);
 		await expect(statusBadge.first()).toBeVisible();
 	});
@@ -33,9 +33,7 @@ test.describe("ADR Status Display", () => {
 
 		// Check that status text exists somewhere
 		const hasStatus =
-			content.includes("Accepted") ||
-			content.includes("accepted") ||
-			content.includes("ACCEPTED");
+			content.includes("Accepted") || content.includes("accepted") || content.includes("ACCEPTED");
 
 		expect(hasStatus).toBe(true);
 	});
@@ -52,7 +50,7 @@ test.describe("ADR Status Display", () => {
 		await page.goto("/adr/001-use-nextra-for-docs");
 
 		// Should have a date (format: YYYY-MM-DD or similar)
-		const datePattern = page.locator('text=/\\d{4}-\\d{2}-\\d{2}/');
+		const datePattern = page.locator("text=/\\d{4}-\\d{2}-\\d{2}/");
 		await expect(datePattern.first()).toBeVisible();
 	});
 
@@ -60,7 +58,7 @@ test.describe("ADR Status Display", () => {
 		await page.goto("/adr");
 
 		// Check if any superseded ADRs exist and display correctly
-		const supersededBadge = page.locator('text=/superseded/i');
+		const supersededBadge = page.locator("text=/superseded/i");
 		const hasSuperseded = await supersededBadge.isVisible().catch(() => false);
 
 		if (hasSuperseded) {

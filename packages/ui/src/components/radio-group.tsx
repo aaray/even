@@ -8,11 +8,7 @@ const RadioGroup = forwardRef<
 	ElementRef<typeof RadioGroupPrimitive.Root>,
 	ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
 >(({ className, ...props }, ref) => (
-	<RadioGroupPrimitive.Root
-		ref={ref}
-		className={cn("grid gap-3", className)}
-		{...props}
-	/>
+	<RadioGroupPrimitive.Root ref={ref} className={cn("grid gap-3", className)} {...props} />
 ));
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 

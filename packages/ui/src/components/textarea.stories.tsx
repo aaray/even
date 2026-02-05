@@ -31,8 +31,7 @@ const meta = {
 		layout: "centered",
 		docs: {
 			description: {
-				component:
-					"A multi-line text input with auto-resize and character count features.",
+				component: "A multi-line text input with auto-resize and character count features.",
 			},
 		},
 	},

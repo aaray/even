@@ -31,13 +31,7 @@ export function AnnotatedImage({
 	return (
 		<figure className="my-6">
 			<div className="relative border border-zinc-800 rounded-lg overflow-hidden bg-zinc-950">
-				<Image
-					src={src}
-					alt={alt}
-					width={width}
-					height={height}
-					className="w-full h-auto"
-				/>
+				<Image src={src} alt={alt} width={width} height={height} className="w-full h-auto" />
 				{callouts.map((callout, index) => (
 					<div
 						key={`${callout.label}-${index}`}

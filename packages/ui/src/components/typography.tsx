@@ -161,12 +161,4 @@ const Caption = forwardRef<HTMLSpanElement, CaptionProps>(
 );
 Caption.displayName = "Caption";
 
-export {
-	Heading,
-	headingVariants,
-	Text,
-	textVariants,
-	Label,
-	labelVariants,
-	Caption,
-};
+export { Heading, headingVariants, Text, textVariants, Label, labelVariants, Caption };

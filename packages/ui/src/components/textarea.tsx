@@ -12,10 +12,7 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-	(
-		{ className, error, success, autoResize, showCount, maxLength, onChange, ...props },
-		ref
-	) => {
+	({ className, error, success, autoResize, showCount, maxLength, onChange, ...props }, ref) => {
 		const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
 		const handleResize = useCallback(() => {
