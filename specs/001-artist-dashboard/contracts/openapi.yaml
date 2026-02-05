@@ -1,0 +1,550 @@
+openapi: 3.1.0
+info:
+  title: EVEN Artist Dashboard API
+  description: |
+    Mock API for the EVEN Artist Dashboard take-home project.
+
+    EVEN is a direct-to-fan platform that lets music artists sell music, videos,
+    merch, and experiences directly to fans while retaining more revenue.
+  version: 1.0.0
+  contact:
+    name: EVEN
+    url: https://get.even.biz
+
+servers:
+  - url: http://localhost:4000
+    description: Local development server
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      description: Returns API health status
+      operationId: getHealth
+      tags:
+        - System
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ok]
+                  timestamp:
+                    type: string
+                    format: date-time
+                required:
+                  - status
+                  - timestamp
+
+  /artist:
+    get:
+      summary: Get artist profile
+      description: Returns the current EVEN artist's profile and summary statistics
+      operationId: getArtist
+      tags:
+        - Artist
+      responses:
+        '200':
+          description: Artist profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artist'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /products:
+    get:
+      summary: Get products
+      description: Returns a list of the artist's products with optional filtering and sorting
+      operationId: getProducts
+      tags:
+        - Products
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of products to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 12
+        - name: category
+          in: query
+          description: Filter by product category
+          schema:
+            type: string
+            enum: [music, video, merch, experience, all]
+            default: all
+        - name: sort
+          in: query
+          description: Sort order
+          schema:
+            type: string
+            enum: [newest, bestselling]
+            default: newest
+      responses:
+        '200':
+          description: Products retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  total:
+                    type: integer
+                    description: Total number of products matching filter
+                required:
+                  - products
+                  - total
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /earnings:
+    get:
+      summary: Get earnings analytics
+      description: Returns earnings time series data and summary statistics for the specified range, including category breakdown and revenue retention metrics
+      operationId: getEarnings
+      tags:
+        - Analytics
+      parameters:
+        - name: range
+          in: query
+          description: Time range for earnings data
+          required: true
+          schema:
+            type: string
+            enum: [7d, 30d, 90d, 1y]
+      responses:
+        '200':
+          description: Earnings data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EarningsResponse'
+        '400':
+          description: Invalid range parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /fans:
+    get:
+      summary: Get fan metrics
+      description: Returns fan growth time series, summary metrics, and top locations
+      operationId: getFans
+      tags:
+        - Analytics
+      parameters:
+        - name: range
+          in: query
+          description: Time range for fan data
+          required: true
+          schema:
+            type: string
+            enum: [7d, 30d, 90d, 1y]
+      responses:
+        '200':
+          description: Fan data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FansResponse'
+        '400':
+          description: Invalid range parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+components:
+  schemas:
+    Artist:
+      type: object
+      description: EVEN artist profile with aggregate statistics
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        avatarUrl:
+          type: string
+          format: uri
+        bio:
+          type: string
+          maxLength: 500
+        totalEarnings:
+          type: integer
+          minimum: 0
+          description: Lifetime earnings in cents
+        revenueRetainedPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Percentage of revenue kept by artist (EVEN value prop)
+        totalFans:
+          type: integer
+          minimum: 0
+        engagementRate:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Overall engagement percentage
+      required:
+        - id
+        - name
+        - avatarUrl
+        - bio
+        - totalEarnings
+        - revenueRetainedPercent
+        - totalFans
+        - engagementRate
+
+    ProductCategory:
+      type: string
+      enum: [music, video, merch, experience]
+      description: EVEN product categories
+
+    Product:
+      type: object
+      description: A product listed for sale on EVEN
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        category:
+          $ref: '#/components/schemas/ProductCategory'
+        imageUrl:
+          type: string
+          format: uri
+        listingDate:
+          type: string
+          format: date-time
+        price:
+          type: integer
+          minimum: 0
+          description: Price in cents
+        totalEarnings:
+          type: integer
+          minimum: 0
+          description: Artist earnings in cents
+        unitsSold:
+          type: integer
+          minimum: 0
+        # Music-specific fields
+        releaseType:
+          type: string
+          enum: [single, ep, album]
+          description: Only for music products
+        trackCount:
+          type: integer
+          minimum: 1
+          description: Only for music products
+        streams:
+          type: integer
+          minimum: 0
+          description: Only for music products
+        # Video-specific fields
+        duration:
+          type: integer
+          minimum: 1
+          description: Video duration in seconds
+        viewCount:
+          type: integer
+          minimum: 0
+          description: Only for video products
+        # Merch-specific fields
+        variant:
+          type: string
+          description: Size/color variant for merch
+        inventory:
+          type: integer
+          minimum: 0
+          description: Remaining stock for merch
+        # Experience-specific fields
+        eventDate:
+          type: string
+          format: date-time
+          description: Event date for experiences
+        capacity:
+          type: integer
+          minimum: 1
+          description: Max attendees for experiences
+        attendees:
+          type: integer
+          minimum: 0
+          description: Current signups for experiences
+      required:
+        - id
+        - title
+        - category
+        - imageUrl
+        - listingDate
+        - price
+        - totalEarnings
+        - unitsSold
+
+    CategoryBreakdown:
+      type: object
+      description: Earnings breakdown by EVEN product category
+      properties:
+        music:
+          type: integer
+          minimum: 0
+        video:
+          type: integer
+          minimum: 0
+        merch:
+          type: integer
+          minimum: 0
+        experience:
+          type: integer
+          minimum: 0
+      required:
+        - music
+        - video
+        - merch
+        - experience
+
+    EarningsDataPoint:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        grossRevenue:
+          type: integer
+          minimum: 0
+          description: Total revenue in cents
+        artistCut:
+          type: integer
+          minimum: 0
+          description: Artist earnings in cents
+        platformFee:
+          type: integer
+          minimum: 0
+          description: EVEN platform fee in cents
+        byCategory:
+          $ref: '#/components/schemas/CategoryBreakdown'
+      required:
+        - date
+        - grossRevenue
+        - artistCut
+        - platformFee
+        - byCategory
+
+    EarningsSummary:
+      type: object
+      properties:
+        totalGross:
+          type: integer
+          minimum: 0
+        totalArtistCut:
+          type: integer
+          minimum: 0
+        totalPlatformFee:
+          type: integer
+          minimum: 0
+        revenueRetainedPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Artist cut as percentage of gross
+        averageDaily:
+          type: number
+          minimum: 0
+        changePercent:
+          type: number
+          description: Percentage change vs previous period
+        byCategory:
+          $ref: '#/components/schemas/CategoryBreakdown'
+      required:
+        - totalGross
+        - totalArtistCut
+        - totalPlatformFee
+        - revenueRetainedPercent
+        - averageDaily
+        - changePercent
+        - byCategory
+
+    EarningsResponse:
+      type: object
+      properties:
+        range:
+          type: string
+          enum: [7d, 30d, 90d, 1y]
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EarningsDataPoint'
+        summary:
+          $ref: '#/components/schemas/EarningsSummary'
+      required:
+        - range
+        - data
+        - summary
+
+    FanDataPoint:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        totalFans:
+          type: integer
+          minimum: 0
+        newFans:
+          type: integer
+          minimum: 0
+        repeatBuyers:
+          type: integer
+          minimum: 0
+      required:
+        - date
+        - totalFans
+        - newFans
+        - repeatBuyers
+
+    FanLocation:
+      type: object
+      properties:
+        location:
+          type: string
+          minLength: 1
+          maxLength: 100
+        fanCount:
+          type: integer
+          minimum: 0
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+      required:
+        - location
+        - fanCount
+        - percentage
+
+    FansSummary:
+      type: object
+      properties:
+        totalFans:
+          type: integer
+          minimum: 0
+        newFansInPeriod:
+          type: integer
+          minimum: 0
+        repeatBuyers:
+          type: integer
+          minimum: 0
+          description: Fans with 2+ purchases
+        emailSubscribers:
+          type: integer
+          minimum: 0
+        changePercent:
+          type: number
+          description: Percentage change vs previous period
+      required:
+        - totalFans
+        - newFansInPeriod
+        - repeatBuyers
+        - emailSubscribers
+        - changePercent
+
+    FansResponse:
+      type: object
+      properties:
+        range:
+          type: string
+          enum: [7d, 30d, 90d, 1y]
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FanDataPoint'
+        summary:
+          $ref: '#/components/schemas/FansSummary'
+        topLocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FanLocation'
+          maxItems: 5
+      required:
+        - range
+        - data
+        - summary
+        - topLocations
+
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type/code
+        message:
+          type: string
+          description: Human-readable error message
+        requestId:
+          type: string
+          format: uuid
+          description: Request correlation ID for debugging
+        statusCode:
+          type: integer
+          minimum: 400
+          maximum: 599
+      required:
+        - error
+        - message
+        - requestId
+        - statusCode
+
+tags:
+  - name: System
+    description: System health and status endpoints
+  - name: Artist
+    description: Artist profile operations
+  - name: Products
+    description: EVEN product catalog operations (Music, Videos, Merch, Experiences)
+  - name: Analytics
+    description: Earnings and fan analytics

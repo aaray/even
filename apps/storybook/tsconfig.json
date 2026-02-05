@@ -1,0 +1,14 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"module": "ESNext",
+		"moduleResolution": "Bundler"
+	},
+	"include": [
+		".storybook/**/*.ts",
+		".storybook/**/*.tsx",
+		"../../packages/ui/src/**/*.stories.tsx"
+	],
+	"exclude": ["node_modules", "dist"]
+}

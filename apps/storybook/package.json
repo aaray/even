@@ -1,0 +1,29 @@
+{
+	"name": "@even/storybook",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "storybook dev -p 6006",
+		"build": "storybook build -o dist"
+	},
+	"dependencies": {
+		"@even/ui": "workspace:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@storybook/addon-a11y": "^10.2.6",
+		"@storybook/addon-links": "^10.2.6",
+		"@storybook/react-vite": "^10.2.6",
+		"@types/react": "^19.0.2",
+		"@types/react-dom": "^19.0.2",
+		"autoprefixer": "^10.4.20",
+		"postcss": "^8.4.49",
+		"storybook": "^10.2.6",
+		"tailwindcss": "^3.4.17",
+		"typescript": "^5.7.2",
+		"vite": "^6.0.6",
+		"@storybook/addon-docs": "^10.2.6"
+	}
+}

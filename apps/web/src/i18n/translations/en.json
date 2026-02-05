@@ -1,0 +1,149 @@
+{
+	"kpi": {
+		"totalEarnings": "Total Earnings",
+		"revenueRetained": "Revenue Retained",
+		"totalFans": "Total Fans",
+		"engagementRate": "Engagement Rate",
+		"vsIndustryAvg": "vs. industry avg 70%"
+	},
+	"earnings": {
+		"title": "Earnings Analytics",
+		"revenueOverTime": "Revenue Over Time",
+		"categoryBreakdown": "Category Breakdown",
+		"totalEarnings": "Total Earnings",
+		"yourCut": "Your Cut",
+		"platformFee": "Platform Fee",
+		"revenueRetained": "Revenue Retained",
+		"retained": "{percent}% retained",
+		"toEven": "{percent}% to EVEN",
+		"error": "Failed to load earnings data"
+	},
+	"fans": {
+		"title": "Fan Engagement",
+		"sendUpdate": "Send Update",
+		"totalFans": "Total Fans",
+		"newFans": "New Fans",
+		"repeatBuyers": "Repeat Buyers",
+		"emailSubscribers": "Email Subscribers",
+		"loyalFans": "loyal fans",
+		"reachable": "reachable",
+		"fanGrowth": "Fan Growth",
+		"topLocations": "Top Locations",
+		"inLast": "in last {range}",
+		"error": "Failed to load fan data"
+	},
+	"releases": {
+		"title": "Recent Releases",
+		"viewAll": "View all",
+		"streams": "{count} streams",
+		"featured": "Featured",
+		"error": "Failed to load releases",
+		"empty": "No releases yet"
+	},
+	"activity": {
+		"title": "Recent Fan Activity",
+		"purchase": "purchased",
+		"stream": "streamed",
+		"share": "shared",
+		"follow": "started following you",
+		"comment": "commented on",
+		"error": "Failed to load activity"
+	},
+	"engagement": {
+		"title": "Fan Engagement",
+		"totalFollowers": "Total Followers",
+		"monthlyListeners": "Monthly Listeners",
+		"engagementRate": "Engagement Rate",
+		"avgStreamTime": "Avg. Stream Time",
+		"topLocations": "Top Locations",
+		"vsLastPeriod": "vs last period",
+		"noLocationData": "No location data available"
+	},
+	"products": {
+		"title": "Recent Products",
+		"error": "Failed to load products",
+		"noProducts": "No products found",
+		"noProductsInCategory": "No products found in {category}",
+		"sold": "sold"
+	},
+	"product": {
+		"totalEarnings": "Total Earnings",
+		"unitsSold": "Units Sold",
+		"price": "Price",
+		"details": "Details",
+		"releaseType": "Release Type",
+		"trackCount": "Track Count",
+		"streams": "Streams",
+		"duration": "Duration",
+		"views": "Views",
+		"variant": "Variant",
+		"inStock": "In Stock",
+		"eventDate": "Event Date",
+		"capacity": "Capacity",
+		"attendees": "Attendees",
+		"listedOn": "Listed on {date}"
+	},
+	"sendUpdate": {
+		"title": "Send Update to Fans",
+		"description": "Send a message to all {count} of your fans. This will be sent via email.",
+		"subjectLabel": "Subject",
+		"subjectPlaceholder": "e.g., New Album Announcement!",
+		"messageLabel": "Message",
+		"messagePlaceholder": "Write your message to fans...",
+		"validationError": "Validation Error",
+		"validationMessage": "Please fill in both subject and message fields.",
+		"sending": "Sending...",
+		"sendButton": "Send Update",
+		"success": "Update Sent!",
+		"successMessage": "Your message has been sent to {count} fans."
+	},
+	"category": {
+		"all": "All",
+		"music": "Music",
+		"video": "Videos",
+		"merch": "Merch",
+		"experience": "Experiences"
+	},
+	"sort": {
+		"newest": "Newest",
+		"bestSelling": "Best Selling",
+		"mostSales": "Most Sales"
+	},
+	"range": {
+		"7d": "7d",
+		"30d": "30d",
+		"90d": "90d",
+		"1y": "1y"
+	},
+	"common": {
+		"retry": "Retry",
+		"cancel": "Cancel",
+		"close": "Close",
+		"total": "Total"
+	},
+	"error": {
+		"title": "Something went wrong",
+		"message": "We encountered an unexpected error. Please try again or contact support if the problem persists.",
+		"tryAgain": "Try again",
+		"notFound": "404",
+		"notFoundTitle": "Page not found",
+		"notFoundMessage": "The page you're looking for doesn't exist or has been moved.",
+		"goToDashboard": "Go to Dashboard"
+	},
+	"language": {
+		"label": "Language",
+		"select": "Select language"
+	},
+	"artist": {
+		"verified": "Verified artist"
+	},
+	"header": {
+		"search": "Search...",
+		"notifications": "Notifications",
+		"settings": "Settings",
+		"welcomeBack": "Welcome back to your dashboard",
+		"goodMorning": "Good morning",
+		"goodAfternoon": "Good afternoon",
+		"goodEvening": "Good evening"
+	}
+}

@@ -1,0 +1,149 @@
+{
+	"kpi": {
+		"totalEarnings": "Ganancias Totales",
+		"revenueRetained": "Ingresos Retenidos",
+		"totalFans": "Total de Fans",
+		"engagementRate": "Tasa de Engagement",
+		"vsIndustryAvg": "vs. promedio industria 70%"
+	},
+	"earnings": {
+		"title": "Análisis de Ganancias",
+		"revenueOverTime": "Ingresos a lo Largo del Tiempo",
+		"categoryBreakdown": "Desglose por Categoría",
+		"totalEarnings": "Ganancias Totales",
+		"yourCut": "Tu Parte",
+		"platformFee": "Comisión de Plataforma",
+		"revenueRetained": "Ingresos Retenidos",
+		"retained": "{percent}% retenido",
+		"toEven": "{percent}% para EVEN",
+		"error": "Error al cargar datos de ganancias"
+	},
+	"fans": {
+		"title": "Engagement de Fans",
+		"sendUpdate": "Enviar Actualización",
+		"totalFans": "Total de Fans",
+		"newFans": "Nuevos Fans",
+		"repeatBuyers": "Compradores Frecuentes",
+		"emailSubscribers": "Suscriptores de Email",
+		"loyalFans": "fans leales",
+		"reachable": "alcanzables",
+		"fanGrowth": "Crecimiento de Fans",
+		"topLocations": "Principales Ubicaciones",
+		"inLast": "en últimos {range}",
+		"error": "Error al cargar datos de fans"
+	},
+	"products": {
+		"title": "Productos Recientes",
+		"error": "Error al cargar productos",
+		"noProducts": "No se encontraron productos",
+		"noProductsInCategory": "No se encontraron productos en {category}",
+		"sold": "vendidos"
+	},
+	"product": {
+		"totalEarnings": "Ganancias Totales",
+		"unitsSold": "Unidades Vendidas",
+		"price": "Precio",
+		"details": "Detalles",
+		"releaseType": "Tipo de Lanzamiento",
+		"trackCount": "Número de Pistas",
+		"streams": "Reproducciones",
+		"duration": "Duración",
+		"views": "Visualizaciones",
+		"variant": "Variante",
+		"inStock": "En Stock",
+		"eventDate": "Fecha del Evento",
+		"capacity": "Capacidad",
+		"attendees": "Asistentes",
+		"listedOn": "Publicado el {date}"
+	},
+	"sendUpdate": {
+		"title": "Enviar Actualización a Fans",
+		"description": "Envía un mensaje a todos tus {count} fans. Se enviará por correo electrónico.",
+		"subjectLabel": "Asunto",
+		"subjectPlaceholder": "ej., ¡Anuncio de Nuevo Álbum!",
+		"messageLabel": "Mensaje",
+		"messagePlaceholder": "Escribe tu mensaje para los fans...",
+		"validationError": "Error de Validación",
+		"validationMessage": "Por favor completa los campos de asunto y mensaje.",
+		"sending": "Enviando...",
+		"sendButton": "Enviar Actualización",
+		"success": "¡Actualización Enviada!",
+		"successMessage": "Tu mensaje ha sido enviado a {count} fans."
+	},
+	"category": {
+		"all": "Todos",
+		"music": "Música",
+		"video": "Videos",
+		"merch": "Merchandising",
+		"experience": "Experiencias"
+	},
+	"sort": {
+		"newest": "Más Recientes",
+		"bestSelling": "Más Vendidos",
+		"mostSales": "Más Ventas"
+	},
+	"range": {
+		"7d": "7d",
+		"30d": "30d",
+		"90d": "90d",
+		"1y": "1a"
+	},
+	"common": {
+		"retry": "Reintentar",
+		"cancel": "Cancelar",
+		"close": "Cerrar",
+		"total": "Total"
+	},
+	"error": {
+		"title": "Algo salió mal",
+		"message": "Encontramos un error inesperado. Por favor intenta de nuevo o contacta soporte si el problema persiste.",
+		"tryAgain": "Intentar de nuevo",
+		"notFound": "404",
+		"notFoundTitle": "Página no encontrada",
+		"notFoundMessage": "La página que buscas no existe o ha sido movida.",
+		"goToDashboard": "Ir al Dashboard"
+	},
+	"language": {
+		"label": "Idioma",
+		"select": "Seleccionar idioma"
+	},
+	"artist": {
+		"verified": "Artista verificado"
+	},
+	"releases": {
+		"title": "Lanzamientos Recientes",
+		"viewAll": "Ver todos",
+		"streams": "{count} reproducciones",
+		"featured": "Destacado",
+		"error": "Error al cargar lanzamientos",
+		"empty": "Aún no hay lanzamientos"
+	},
+	"activity": {
+		"title": "Actividad Reciente de Fans",
+		"purchase": "compró",
+		"stream": "reprodujo",
+		"share": "compartió",
+		"follow": "empezó a seguirte",
+		"comment": "comentó en",
+		"error": "Error al cargar actividad"
+	},
+	"engagement": {
+		"title": "Engagement de Fans",
+		"totalFollowers": "Total de Seguidores",
+		"monthlyListeners": "Oyentes Mensuales",
+		"engagementRate": "Tasa de Engagement",
+		"avgStreamTime": "Tiempo Promedio de Escucha",
+		"topLocations": "Principales Ubicaciones",
+		"vsLastPeriod": "vs período anterior",
+		"noLocationData": "No hay datos de ubicación disponibles"
+	},
+	"header": {
+		"search": "Buscar...",
+		"notifications": "Notificaciones",
+		"settings": "Configuración",
+		"welcomeBack": "Bienvenido de vuelta a tu panel",
+		"goodMorning": "Buenos días",
+		"goodAfternoon": "Buenas tardes",
+		"goodEvening": "Buenas noches"
+	}
+}
