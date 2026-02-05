@@ -1,0 +1,143 @@
+---
+title: Shared Packages
+description: Reusable packages shared across the EVEN platform
+---
+
+# Shared Packages
+
+The EVEN platform uses shared packages to ensure consistency and reduce duplication across applications.
+
+## `@even/ui`
+
+The UI package contains all reusable React components, built on shadcn/ui patterns.
+
+### Features
+
+- **50+ Components** - Buttons, cards, forms, tables, and more
+- **Design Tokens** - Consistent colors, spacing, typography
+- **Dark Theme** - Default dark mode with EVEN brand colors
+- **Accessibility** - WCAG 2.1 AA compliant
+
+### Component Categories
+
+| Category | Components |
+|----------|------------|
+| Basic | Button, Badge, Card, Input, Label |
+| Navigation | Breadcrumb, Sidebar, Header |
+| Data Display | Table, Tabs, Select, Dropdown |
+| Feedback | Toast, Alert, Skeleton, Progress |
+| Layout | Sheet, Dialog, Popover |
+
+### Usage
+
+```tsx
+import { Button, Card, Badge } from '@even/ui';
+
+export function ProductCard({ product }) {
+  return (
+    <Card>
+      <Badge>{product.category}</Badge>
+      <h3>{product.title}</h3>
+      <Button>View Details</Button>
+    </Card>
+  );
+}
+```
+
+### Storybook
+
+All components are documented in Storybook at `http://localhost:6006`.
+
+---
+
+## `@even/shared`
+
+The shared package contains TypeScript types, Zod schemas, and utility functions.
+
+### Schemas
+
+All API data structures are defined as Zod schemas:
+
+```typescript
+import { z } from 'zod';
+
+export const ProductSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  category: z.enum(['music', 'video', 'merch', 'experience']),
+  price: z.number(),
+  salesCount: z.number(),
+  // ...
+});
+
+export type Product = z.infer<typeof ProductSchema>;
+```
+
+### Available Schemas
+
+| Schema | Description |
+|--------|-------------|
+| `ArtistSchema` | Artist profile data |
+| `ProductSchema` | Product information |
+| `EarningsSchema` | Earnings data points |
+| `FansSchema` | Fan engagement metrics |
+| `ApiErrorSchema` | Standardized error format |
+
+### Utilities
+
+```typescript
+import {
+  formatCurrency,
+  formatCompactNumber,
+  formatDate,
+  formatPercent,
+} from '@even/shared';
+
+formatCurrency(1234.56);      // "$1,234.56"
+formatCompactNumber(1500000); // "1.5M"
+formatPercent(0.156);         // "+15.6%"
+```
+
+---
+
+## `@even/docs-content`
+
+Contains shared documentation assets:
+
+- **Diagrams** - Mermaid source files (`.mmd`)
+- **Images** - Screenshots and visuals
+- **Templates** - ADR and documentation templates
+
+### Structure
+
+```
+packages/docs-content/
+├── diagrams/
+│   ├── architecture/
+│   │   ├── c4-system-context.mmd
+│   │   └── c4-container.mmd
+│   └── sequences/
+│       └── product-creation-flow.mmd
+├── images/
+│   └── manuals/
+└── adr/
+    └── template.mdx
+```
+
+## Package Dependencies
+
+```mermaid
+graph LR
+    web[@even/web] --> ui[@even/ui]
+    web --> shared[@even/shared]
+    api[@even/api] --> shared
+    storybook[@even/storybook] --> ui
+    docs[@even/docs] --> ui
+    docs --> content[@even/docs-content]
+
+    classDef app fill:#4c1d95,stroke:#8b5cf6,color:#fff
+    classDef pkg fill:#1e3a5f,stroke:#3b82f6,color:#fff
+
+    class web,api,storybook,docs app
+    class ui,shared,content pkg
+```

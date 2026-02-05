@@ -1,0 +1,221 @@
+---
+title: Products Endpoint
+description: List and retrieve product information
+---
+
+# Products Endpoints
+
+Manage and retrieve product information with filtering, sorting, and pagination.
+
+## GET /products
+
+List all products with optional filtering and sorting.
+
+### Request
+
+```http
+GET /products HTTP/1.1
+Host: localhost:4000
+```
+
+### Query Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `category` | string | No | `all` | Filter by category: `all`, `music`, `video`, `merch`, `experience` |
+| `sortBy` | string | No | `newest` | Sort order: `newest`, `revenue`, `sales` |
+| `page` | number | No | `1` | Page number (1-indexed) |
+| `limit` | number | No | `12` | Items per page (max 100) |
+
+### Success Response
+
+**Status**: `200 OK`
+
+```json
+{
+  "products": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "title": "Midnight Dreams EP",
+      "category": "music",
+      "price": 1299,
+      "imageUrl": "https://picsum.photos/seed/MidnightDreamsEP/400/400",
+      "listingDate": "2024-06-15T00:00:00Z",
+      "unitsSold": 2450,
+      "totalEarnings": 2772315,
+      "releaseType": "ep",
+      "trackCount": 5,
+      "streams": 245000
+    }
+  ],
+  "total": 25,
+  "page": 1,
+  "limit": 12
+}
+```
+
+### Product Object Fields
+
+#### Common Fields (All Categories)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique product identifier (UUID) |
+| `title` | string | Product title |
+| `category` | string | Product category: `music`, `video`, `merch`, `experience` |
+| `price` | number | Price in cents |
+| `imageUrl` | string | URL to product image |
+| `listingDate` | string | ISO 8601 timestamp of listing |
+| `unitsSold` | number | Total units sold |
+| `totalEarnings` | number | Total earnings in cents (after platform fee) |
+
+#### Music-specific Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `releaseType` | string | `single`, `ep`, or `album` |
+| `trackCount` | number | Number of tracks |
+| `streams` | number | Total stream count |
+
+#### Video-specific Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `duration` | number | Duration in seconds |
+| `viewCount` | number | Total view count |
+
+#### Merch-specific Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `variant` | string | Product variant: `Apparel`, `Collectible`, `Accessory` |
+| `inventory` | number | Current inventory count |
+
+#### Experience-specific Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `eventDate` | string | ISO 8601 timestamp of event |
+| `capacity` | number | Maximum attendees |
+| `attendees` | number | Current attendee count |
+
+---
+
+## GET /products/:id
+
+Retrieve a single product by ID.
+
+### Request
+
+```http
+GET /products/{id} HTTP/1.1
+Host: localhost:4000
+```
+
+### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | Yes | Product UUID |
+
+### Success Response
+
+**Status**: `200 OK`
+
+Returns a single product object (see fields above).
+
+### Error Response
+
+**Status**: `404 Not Found`
+
+```json
+{
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Product with id \"invalid-id\" not found",
+    "timestamp": "2026-02-05T10:30:00Z"
+  }
+}
+```
+
+---
+
+## Examples
+
+### List Music Products
+
+```bash
+curl "http://localhost:4000/products?category=music&sortBy=revenue"
+```
+
+### Get Products with Pagination
+
+```bash
+curl "http://localhost:4000/products?page=2&limit=10"
+```
+
+### JavaScript Example
+
+```javascript
+// List products with filtering
+async function getProducts({ category, sortBy, page, limit }) {
+  const params = new URLSearchParams();
+  if (category) params.set('category', category);
+  if (sortBy) params.set('sortBy', sortBy);
+  if (page) params.set('page', page.toString());
+  if (limit) params.set('limit', limit.toString());
+
+  const response = await fetch(`http://localhost:4000/products?${params}`);
+  return response.json();
+}
+
+// Get music products sorted by revenue
+const musicProducts = await getProducts({
+  category: 'music',
+  sortBy: 'revenue'
+});
+
+// Get a single product
+async function getProduct(id) {
+  const response = await fetch(`http://localhost:4000/products/${id}`);
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error.message);
+  }
+  return response.json();
+}
+```
+
+### TypeScript with Types
+
+```typescript
+import type { Product } from '@even/shared';
+
+interface ProductsResponse {
+  products: Product[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+async function fetchProducts(options?: {
+  category?: 'all' | 'music' | 'video' | 'merch' | 'experience';
+  sortBy?: 'newest' | 'revenue' | 'sales';
+  page?: number;
+  limit?: number;
+}): Promise<ProductsResponse> {
+  const params = new URLSearchParams();
+  if (options?.category) params.set('category', options.category);
+  if (options?.sortBy) params.set('sortBy', options.sortBy);
+  if (options?.page) params.set('page', options.page.toString());
+  if (options?.limit) params.set('limit', options.limit.toString());
+
+  const response = await fetch(`http://localhost:4000/products?${params}`);
+  return response.json();
+}
+```
+
+## Related Endpoints
+
+- [GET /artist](/api/endpoints/artist) - Get artist profile
+- [GET /earnings](/api/endpoints/earnings) - Get earnings data

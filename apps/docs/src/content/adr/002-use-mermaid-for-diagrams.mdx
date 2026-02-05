@@ -1,0 +1,79 @@
+---
+title: "ADR-002: Use Mermaid for Architecture Diagrams"
+description: "Decision to use Mermaid.js for text-based, version-controlled diagrams"
+---
+
+import { ADRStatusBadge } from '@/components/ADRStatusBadge'
+
+# ADR-002: Use Mermaid for Architecture Diagrams
+
+<div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-zinc-400">
+  <ADRStatusBadge status="accepted" />
+  <span>Date: 2026-02-05</span>
+  <span>Decision Makers: Development Team</span>
+</div>
+
+## Context
+
+The EVEN documentation needs architecture diagrams to visualize:
+- System context and boundaries
+- Component relationships (C4 model)
+- Sequence diagrams for data flows
+- State machines and workflows
+
+Diagrams should be:
+- Version-controlled alongside documentation
+- Diffable in pull requests
+- Easy to update without specialized tools
+- Rendered interactively in the browser
+
+## Decision
+
+We will use **Mermaid.js** for all architecture diagrams, with a custom `DiagramViewer` component for enhanced interactivity.
+
+## Consequences
+
+### Positive
+
+- **Text-based source** - Diagrams stored as `.mmd` files, fully version-controllable
+- **Diffable** - Changes visible in PRs, easy to review diagram updates
+- **Browser-native** - Renders SVG client-side, no server dependencies
+- **Wide syntax support** - Flowcharts, sequence, C4, ER diagrams, state machines
+- **Interactive** - Custom component adds zoom, pan, and click-to-navigate
+
+### Negative
+
+- **Syntax learning curve** - Team needs to learn Mermaid syntax
+- **Limited styling** - Some visual customizations are difficult
+- **Complex diagrams** - Very large diagrams can be hard to lay out cleanly
+- **Rendering variations** - Output may differ slightly across Mermaid versions
+
+## Alternatives Considered
+
+### PlantUML
+
+Established diagramming tool with rich syntax.
+
+**Rejected because**: Requires Java server for rendering, adds infrastructure dependency and slows iteration.
+
+### D2
+
+Modern diagramming language with beautiful output.
+
+**Rejected because**: Newer with smaller ecosystem, fewer examples and community resources.
+
+### Structurizr
+
+Purpose-built for C4 model architecture diagrams.
+
+**Rejected because**: DSL-based with steeper learning curve, overkill for current needs.
+
+### Draw.io / Excalidraw
+
+Visual diagram editors.
+
+**Rejected because**: Binary files not diffable in Git, violates docs-as-code principle.
+
+## Related Decisions
+
+- [ADR-001: Use Nextra for Documentation](/adr/001-use-nextra-for-docs) - Documentation framework

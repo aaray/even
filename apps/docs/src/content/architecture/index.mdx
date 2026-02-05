@@ -1,0 +1,83 @@
+---
+title: Architecture Overview
+description: High-level system architecture of the EVEN Artist Dashboard platform
+---
+
+import { DiagramViewer } from '@/components/DiagramViewer'
+
+# Architecture Overview
+
+The EVEN Artist Dashboard is a modern web application built with a clear separation of concerns between the frontend, backend, and shared packages.
+
+## System Context
+
+The following diagram shows how the EVEN platform fits into its broader context, including external systems and user types.
+
+<DiagramViewer
+  diagram={`graph TB
+    subgraph ext[External Systems]
+        payment[Payment Processor]
+        email[Email Service]
+        cdn[CDN / Media Storage]
+    end
+
+    subgraph users[Users]
+        artist[Artist<br/>Manages content, views analytics]
+        fan[Fan<br/>Purchases content, engages]
+        admin[Admin<br/>Platform management]
+    end
+
+    subgraph even[EVEN Platform]
+        web[Web Application<br/>Next.js Dashboard]
+        api[API Server<br/>Fastify REST API]
+        db[(Database<br/>MongoDB)]
+    end
+
+    artist --> web
+    fan --> web
+    admin --> web
+    web --> api
+    api --> db
+    api --> payment
+    api --> email
+    api --> cdn
+
+    classDef external fill:#1e3a5f,stroke:#3b82f6,color:#fff
+    classDef user fill:#4c1d95,stroke:#8b5cf6,color:#fff
+    classDef system fill:#064e3b,stroke:#10b981,color:#fff
+
+    class payment,email,cdn external
+    class artist,fan,admin user
+    class web,api,db system`}
+  title="System Context Diagram"
+  nodeLinks={{
+    web: '/architecture/components/web-app',
+    api: '/architecture/components/api',
+  }}
+/>
+
+## Key Components
+
+The platform consists of several key components:
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| [Web App](/architecture/components/web-app) | Next.js 15, React 19 | Artist dashboard UI |
+| [API Server](/architecture/components/api) | Fastify 5.2 | REST API endpoints |
+| [Shared Packages](/architecture/components/shared-packages) | TypeScript | Reusable types and utilities |
+
+## Architecture Principles
+
+The architecture follows these core principles:
+
+1. **Monorepo Structure** - All code lives in a single repository with clear package boundaries
+2. **Type Safety** - TypeScript strict mode with Zod schema validation
+3. **Component-Based UI** - Reusable UI components via shadcn/ui patterns
+4. **API-First Design** - Backend functionality exposed through REST APIs
+5. **Docs-as-Code** - Documentation lives alongside the code
+
+## Next Steps
+
+- Explore the [Component Details](/architecture/components) for deep-dives into each part
+- Review [Data Flows](/architecture/data-flow) to understand how information moves through the system
+- Check the [ADRs](/adr) for documented architectural decisions

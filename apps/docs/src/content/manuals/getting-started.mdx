@@ -1,0 +1,104 @@
+---
+title: Getting Started
+description: Learn the basics of using the EVEN Artist Dashboard
+---
+
+import { StepList, Step } from '@/components/StepList'
+
+# Getting Started with EVEN
+
+Welcome to EVEN! This guide will walk you through the basics of using the Artist Dashboard.
+
+**Estimated time**: 5 minutes
+**Difficulty**: Beginner
+
+## Prerequisites
+
+- An active EVEN artist account
+- Access to the Artist Dashboard
+
+## Dashboard Overview
+
+When you first log in, you'll see the main dashboard with:
+
+1. **KPI Cards** - Key metrics at a glance (total earnings, fans, products)
+2. **Earnings Chart** - Visual breakdown of your revenue over time
+3. **Products Grid** - Your products with sales data
+4. **Fan Engagement** - Metrics about your fan base
+
+## Navigating the Dashboard
+
+<StepList>
+  <Step number={1} title="View Your Key Metrics">
+    <p>
+      The top of the dashboard shows your most important numbers:
+    </p>
+    <ul className="list-disc list-inside mt-2">
+      <li><strong>Total Earnings</strong> - Your cumulative revenue</li>
+      <li><strong>Total Fans</strong> - Number of unique fans</li>
+      <li><strong>Products</strong> - Count of your listed products</li>
+      <li><strong>Avg. Order Value</strong> - Typical purchase amount</li>
+    </ul>
+    <p className="mt-2">
+      Each card shows the change from the previous period.
+    </p>
+  </Step>
+
+  <Step
+    number={2}
+    title="Explore the Earnings Chart"
+    tip="Click on different time ranges (7d, 30d, 90d) to see trends over different periods."
+  >
+    <p>
+      The earnings chart shows your revenue broken down by product category:
+    </p>
+    <ul className="list-disc list-inside mt-2">
+      <li><span className="text-purple-400">Purple</span> - Music sales</li>
+      <li><span className="text-blue-400">Blue</span> - Video content</li>
+      <li><span className="text-green-400">Green</span> - Merchandise</li>
+      <li><span className="text-orange-400">Orange</span> - Experiences</li>
+    </ul>
+  </Step>
+
+  <Step number={3} title="Browse Your Products">
+    <p>
+      Scroll down to see your product grid. Each product card shows:
+    </p>
+    <ul className="list-disc list-inside mt-2">
+      <li>Product image and title</li>
+      <li>Category (music, video, merch, experience)</li>
+      <li>Price and sales count</li>
+      <li>Revenue generated</li>
+    </ul>
+  </Step>
+
+  <Step
+    number={4}
+    title="Filter and Sort Products"
+    tip="Use filters to focus on specific product types or price ranges."
+  >
+    <p>
+      Use the controls above the product grid to:
+    </p>
+    <ul className="list-disc list-inside mt-2">
+      <li><strong>Filter by category</strong> - Show only music, video, etc.</li>
+      <li><strong>Sort by</strong> - Revenue, sales count, or date</li>
+      <li><strong>Search</strong> - Find specific products by name</li>
+    </ul>
+  </Step>
+</StepList>
+
+## What's Next?
+
+Now that you know the basics:
+
+- [Add a new product](/manuals/products/add-new-product) to your store
+- [View detailed earnings](/manuals/earnings/view-earnings) breakdowns
+- Explore the [API Reference](/api) for integrations
+
+## Need Help?
+
+If you have questions:
+- Use the search to find specific topics
+- Check other guides in the [User Manuals](/manuals)
+- Review the [Architecture](/architecture) docs for technical details

@@ -1,0 +1,151 @@
+---
+title: Data Flow
+description: How data moves through the EVEN platform
+---
+
+import { DiagramViewer } from '@/components/DiagramViewer'
+
+# Data Flow
+
+This section documents how data flows through the EVEN platform for key operations.
+
+## Product Creation Flow
+
+The following sequence diagram shows how an artist creates a new product:
+
+<DiagramViewer
+  diagram={`sequenceDiagram
+    autonumber
+    participant A as Artist
+    participant W as Web App
+    participant API as API Server
+    participant DB as Database
+    participant CDN as Media CDN
+
+    A->>W: Navigate to Products
+    W->>API: GET /products
+    API->>DB: Query artist products
+    DB-->>API: Product list
+    API-->>W: Products JSON
+    W-->>A: Display product grid
+
+    A->>W: Click "Add Product"
+    W-->>A: Show product form
+
+    A->>W: Fill form + Upload media
+    W->>CDN: Upload media files
+    CDN-->>W: Media URLs
+
+    A->>W: Submit product
+    W->>API: POST /products
+    API->>DB: Validate & Save
+    DB-->>API: Product created
+    API-->>W: Success response
+    W-->>A: Show success + Redirect
+
+    Note over A,CDN: Product now available for fans to purchase`}
+  title="Product Creation Flow"
+/>
+
+## Key Data Flows
+
+### Dashboard Load
+
+When an artist opens the dashboard:
+
+1. Web App requests artist profile from API
+2. API fetches data from database
+3. Dashboard displays KPIs, charts, and recent activity
+
+### Earnings Data
+
+```mermaid
+graph LR
+    A[Web App] -->|GET /earnings?range=30d| B[API]
+    B -->|Query| C[(Database)]
+    C -->|Aggregated data| B
+    B -->|JSON response| A
+    A -->|Render| D[Earnings Chart]
+```
+
+### Product Filtering
+
+```mermaid
+graph LR
+    A[User selects filter] --> B[Update URL params]
+    B --> C[TanStack Query refetch]
+    C -->|GET /products?category=music| D[API]
+    D --> E[Filter in database]
+    E --> D
+    D --> C
+    C --> F[Update UI]
+```
+
+## Data Validation
+
+Data is validated at multiple points:
+
+| Point | Mechanism | Purpose |
+|-------|-----------|---------|
+| Frontend | Zod schemas | Form validation |
+| API | Zod schemas | Input validation |
+| Database | Schema constraints | Data integrity |
+
+### Example: Product Validation
+
+```typescript
+// Shared schema used by both frontend and backend
+const ProductSchema = z.object({
+  title: z.string().min(1).max(100),
+  category: z.enum(['music', 'video', 'merch', 'experience']),
+  price: z.number().min(0),
+  description: z.string().max(1000).optional(),
+});
+
+// Frontend: Form validation
+const result = ProductSchema.safeParse(formData);
+if (!result.success) {
+  showErrors(result.error);
+}
+
+// Backend: Request validation
+const validated = ProductSchema.parse(req.body);
+```
+
+## Caching Strategy
+
+| Data Type | Cache TTL | Invalidation |
+|-----------|-----------|--------------|
+| Artist Profile | 5 min | On update |
+| Products | 1 min | On create/update/delete |
+| Earnings | 5 min | Time-based |
+| Fans | 5 min | Time-based |
+
+TanStack Query handles caching automatically:
+
+```typescript
+useQuery({
+  queryKey: ['products', filters],
+  queryFn: fetchProducts,
+  staleTime: 60 * 1000, // 1 minute
+});
+```
+
+## Error Handling
+
+Errors propagate through the stack:
+
+```mermaid
+graph TB
+    A[Error in DB] -->|Caught| B[API Error Handler]
+    B -->|Format| C[ApiError Response]
+    C -->|HTTP 4xx/5xx| D[Web App]
+    D -->|Display| E[Toast Notification]
+    D -->|Log| F[Console/Monitoring]
+```
+
+## Related
+
+- [API Server](/architecture/components/api) - Backend implementation
+- [Web App](/architecture/components/web-app) - Frontend implementation
+- [API Reference](/api) - Endpoint details

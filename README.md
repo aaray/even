@@ -22,6 +22,21 @@ A production-quality artist dashboard for EVEN, a direct-to-fan platform where a
 - **Testing**: Playwright (E2E), Storybook (component documentation)
 - **Linting**: Biome
 
+## Documentation
+
+Full documentation is available in the docs app:
+
+```bash
+bun run dev --filter=@even/docs
+```
+
+Or browse the docs at http://localhost:3001 when running.
+
+- [Architecture](/apps/docs/src/pages/architecture) - System design and diagrams
+- [ADRs](/apps/docs/src/pages/adr) - Architecture Decision Records
+- [User Manuals](/apps/docs/src/pages/manuals) - How-to guides
+- [API Reference](/apps/docs/src/pages/api) - REST API documentation
+
 ## Project Structure
 
 ```
@@ -29,10 +44,12 @@ A production-quality artist dashboard for EVEN, a direct-to-fan platform where a
 ├── apps/
 │   ├── web/          # Next.js frontend
 │   ├── api/          # Fastify mock API
+│   ├── docs/         # Documentation (Nextra)
 │   └── storybook/    # Component documentation
 ├── packages/
 │   ├── ui/           # Design system (shadcn-based)
-│   └── shared/       # Types, schemas, utilities
+│   ├── shared/       # Types, schemas, utilities
+│   └── docs-content/ # Shared documentation content
 └── e2e/              # Playwright E2E tests
 ```
 

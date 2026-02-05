@@ -1,0 +1,30 @@
+sequenceDiagram
+    autonumber
+    participant A as Artist
+    participant W as Web App
+    participant API as API Server
+    participant DB as Database
+    participant CDN as Media CDN
+
+    A->>W: Navigate to Products
+    W->>API: GET /products
+    API->>DB: Query artist products
+    DB-->>API: Product list
+    API-->>W: Products JSON
+    W-->>A: Display product grid
+
+    A->>W: Click "Add Product"
+    W-->>A: Show product form
+
+    A->>W: Fill form + Upload media
+    W->>CDN: Upload media files
+    CDN-->>W: Media URLs
+
+    A->>W: Submit product
+    W->>API: POST /products
+    API->>DB: Validate & Save
+    DB-->>API: Product created
+    API-->>W: Success response
+    W-->>A: Show success + Redirect
+
+    Note over A,CDN: Product now available for fans to purchase

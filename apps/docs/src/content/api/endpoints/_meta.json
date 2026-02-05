@@ -1,0 +1,5 @@
+{
+	"artist": "GET /artist",
+	"products": "Products",
+	"earnings": "GET /earnings"
+}

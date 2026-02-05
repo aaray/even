@@ -1,0 +1,11 @@
+{
+	"name": "@even/docs-content",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Shared documentation content assets (diagrams, images, templates)",
+	"exports": {
+		"./diagrams/*": "./diagrams/*",
+		"./images/*": "./images/*",
+		"./adr/*": "./adr/*"
+	}
+}

@@ -1,0 +1,110 @@
+---
+title: API Server
+description: Fastify REST API backend for the EVEN platform
+---
+
+# API Server (`@even/api`)
+
+The API Server is the backend application that provides REST endpoints for the EVEN platform.
+
+## Technology Stack
+
+| Layer | Technology | Version |
+|-------|------------|---------|
+| Framework | Fastify | 5.2.x |
+| Validation | Zod | 3.24.x |
+| CORS | @fastify/cors | 10.x |
+
+## Directory Structure
+
+```
+apps/api/
+├── src/
+│   ├── index.ts       # Server entry point
+│   ├── routes/        # Route handlers
+│   │   ├── artist.ts
+│   │   ├── products.ts
+│   │   ├── earnings.ts
+│   │   └── fans.ts
+│   ├── data/          # Mock data generators
+│   └── lib/           # Utilities
+└── package.json
+```
+
+## API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/health` | Health check |
+| GET | `/artist` | Get artist profile |
+| GET | `/products` | List products with filters |
+| GET | `/earnings` | Get earnings data |
+| GET | `/fans` | Get fan engagement metrics |
+
+See the [API Reference](/api) for complete documentation.
+
+## Request/Response Flow
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant F as Fastify
+    participant V as Zod Validator
+    participant H as Handler
+    participant D as Data Layer
+
+    C->>F: HTTP Request
+    F->>V: Validate input
+    V-->>F: Validation result
+    alt Invalid
+        F-->>C: 400 Bad Request
+    else Valid
+        F->>H: Call handler
+        H->>D: Fetch/mutate data
+        D-->>H: Result
+        H-->>F: Response
+        F-->>C: JSON Response
+    end
+```
+
+## Validation
+
+All inputs are validated using Zod schemas from `@even/shared`:
+
+```typescript
+import { ProductsResponseSchema } from '@even/shared';
+
+// Response is automatically typed and validated
+const response = ProductsResponseSchema.parse(data);
+```
+
+## Error Handling
+
+Errors follow a consistent format:
+
+```json
+{
+  "error": "Not Found",
+  "message": "Product with ID abc123 not found",
+  "statusCode": 404,
+  "requestId": "req-12345"
+}
+```
+
+## Configuration
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Server port | `4000` |
+| `HOST` | Server host | `localhost` |
+| `CORS_ORIGIN` | Allowed origins | `http://localhost:3000` |
+
+## Dependencies
+
+- `@even/shared` - Type definitions and schemas
+
+## Related
+
+- [Web App](/architecture/components/web-app) - Frontend consumer
+- [API Reference](/api) - Complete endpoint documentation
+- [Data Flows](/architecture/data-flow) - Request lifecycle

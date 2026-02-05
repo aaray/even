@@ -1,0 +1,127 @@
+---
+title: Viewing Your Earnings
+description: Understand your revenue breakdown and trends on EVEN
+---
+
+import { StepList, Step } from '@/components/StepList'
+
+# Viewing Your Earnings
+
+Learn how to understand and analyze your earnings on the EVEN platform.
+
+**Estimated time**: 5 minutes
+**Difficulty**: Beginner
+
+## Prerequisites
+
+- Active EVEN artist account with sales history
+
+## Earnings Overview
+
+The earnings section shows:
+- **Total Revenue** - Your cumulative earnings
+- **Revenue by Category** - Breakdown by product type
+- **Trend Analysis** - How earnings change over time
+- **Top Products** - Your best-selling items
+
+## Understanding the Earnings Chart
+
+<StepList>
+  <Step number={1} title="Locate the Earnings Chart">
+    <p>
+      The earnings chart is on the main dashboard, below the KPI cards. It shows a stacked area chart of your revenue over time.
+    </p>
+  </Step>
+
+  <Step number={2} title="Read the Chart">
+    <p>
+      Each color represents a product category:
+    </p>
+    <ul className="list-disc list-inside mt-2">
+      <li><span className="text-purple-400">Purple</span> - Music revenue</li>
+      <li><span className="text-blue-400">Blue</span> - Video revenue</li>
+      <li><span className="text-green-400">Green</span> - Merch revenue</li>
+      <li><span className="text-orange-400">Orange</span> - Experience revenue</li>
+    </ul>
+    <p className="mt-2">
+      Hover over any point to see the exact values for that date.
+    </p>
+  </Step>
+
+  <Step
+    number={3}
+    title="Change Time Range"
+    tip="Use keyboard shortcuts: 1 for 7 days, 2 for 30 days, 3 for 90 days."
+  >
+    <p>
+      Select different time periods to analyze:
+    </p>
+    <ul className="list-disc list-inside mt-2">
+      <li><strong>7 Days</strong> - Recent daily performance</li>
+      <li><strong>30 Days</strong> - Monthly trends</li>
+      <li><strong>90 Days</strong> - Quarterly overview</li>
+    </ul>
+  </Step>
+
+  <Step number={4} title="View Category Breakdown">
+    <p>
+      Below the chart, see the percentage breakdown:
+    </p>
+    <ul className="list-disc list-inside mt-2">
+      <li>Total earnings for the selected period</li>
+      <li>Percentage from each category</li>
+      <li>Change from previous period</li>
+    </ul>
+  </Step>
+</StepList>
+
+## Key Metrics Explained
+
+### Total Earnings
+
+The sum of all revenue from product sales, minus:
+- Platform fees
+- Payment processing fees
+- Refunds
+
+### Average Order Value
+
+Calculated as: Total Revenue / Number of Orders
+
+A higher AOV indicates fans are purchasing more per transaction.
+
+### Growth Rate
+
+The percentage change compared to the previous period:
+- **Positive (green)** - Revenue increased
+- **Negative (red)** - Revenue decreased
+- **Neutral (gray)** - No significant change
+
+## Tips for Analyzing Earnings
+
+### Identify Patterns
+
+Look for:
+- **Weekly patterns** - Are certain days better for sales?
+- **Release impact** - How do new releases affect earnings?
+- **Seasonal trends** - Any holidays or events that boost sales?
+
+### Compare Categories
+
+Notice which category performs best:
+- If Music dominates, consider expanding your catalog
+- If Merch is growing, explore new merchandise options
+- If Experiences are strong, plan more events
+
+### Track Growth
+
+Use the 90-day view to spot long-term trends:
+- Consistent growth indicates healthy momentum
+- Sudden drops may need investigation
+- Spikes often correlate with releases or promotions
+
+## Related Guides
+
+- [Getting Started](/manuals/getting-started)
+- [Adding Products](/manuals/products/add-new-product)
+- [API Earnings Endpoint](/api/endpoints/earnings)

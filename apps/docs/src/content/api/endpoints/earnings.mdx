@@ -1,0 +1,225 @@
+---
+title: Earnings Endpoint
+description: Retrieve earnings data with time range filtering
+---
+
+# GET /earnings
+
+Retrieve detailed earnings data with breakdown by category and time series.
+
+## Request
+
+```http
+GET /earnings HTTP/1.1
+Host: localhost:4000
+```
+
+### Query Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `range` | string | No | `30d` | Time range: `7d`, `30d`, `90d`, `1y` |
+
+## Response
+
+### Success Response
+
+**Status**: `200 OK`
+
+```json
+{
+  "range": "30d",
+  "data": [
+    {
+      "date": "2026-01-06T00:00:00Z",
+      "grossRevenue": 85000,
+      "artistCut": 73950,
+      "platformFee": 11050,
+      "byCategory": {
+        "music": 38250,
+        "video": 12750,
+        "merch": 21250,
+        "experience": 12750
+      }
+    }
+  ],
+  "summary": {
+    "totalGross": 2550000,
+    "totalArtistCut": 2218500,
+    "totalPlatformFee": 331500,
+    "revenueRetainedPercent": 87,
+    "averageDaily": 85000,
+    "changePercent": 12.5,
+    "byCategory": {
+      "music": 1147500,
+      "video": 382500,
+      "merch": 637500,
+      "experience": 382500
+    }
+  }
+}
+```
+
+### Response Fields
+
+#### Root Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `range` | string | The requested time range |
+| `data` | array | Daily earnings data points |
+| `summary` | object | Aggregated summary for the period |
+
+#### Data Point Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `date` | string | ISO 8601 date for this data point |
+| `grossRevenue` | number | Total gross revenue in cents |
+| `artistCut` | number | Artist earnings in cents (87% of gross) |
+| `platformFee` | number | Platform fee in cents (13% of gross) |
+| `byCategory` | object | Revenue breakdown by product category |
+
+#### By Category Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `music` | number | Music revenue in cents |
+| `video` | number | Video revenue in cents |
+| `merch` | number | Merchandise revenue in cents |
+| `experience` | number | Experience revenue in cents |
+
+#### Summary Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `totalGross` | number | Total gross revenue for the period (cents) |
+| `totalArtistCut` | number | Total artist earnings for the period (cents) |
+| `totalPlatformFee` | number | Total platform fees for the period (cents) |
+| `revenueRetainedPercent` | number | Percentage retained by artist (87%) |
+| `averageDaily` | number | Average daily revenue (cents) |
+| `changePercent` | number | Percent change vs previous period |
+| `byCategory` | object | Total revenue by category for the period |
+
+## Time Ranges
+
+| Range | Description | Data Points |
+|-------|-------------|-------------|
+| `7d` | Last 7 days | 7 daily points |
+| `30d` | Last 30 days | 30 daily points |
+| `90d` | Last 90 days | 90 daily points |
+| `1y` | Last 365 days | 365 daily points |
+
+## Examples
+
+### Get Last 7 Days
+
+```bash
+curl "http://localhost:4000/earnings?range=7d"
+```
+
+### Get Last Year
+
+```bash
+curl "http://localhost:4000/earnings?range=1y"
+```
+
+### JavaScript Example
+
+```javascript
+async function getEarnings(range = '30d') {
+  const response = await fetch(`http://localhost:4000/earnings?range=${range}`);
+  const data = await response.json();
+
+  // Convert cents to dollars for display
+  const totalDollars = data.summary.totalArtistCut / 100;
+  console.log(`Total Earnings: $${totalDollars.toLocaleString()}`);
+
+  // Calculate category percentages
+  const categories = data.summary.byCategory;
+  const total = data.summary.totalGross;
+  console.log(`Music: ${((categories.music / total) * 100).toFixed(1)}%`);
+
+  return data;
+}
+```
+
+### TypeScript with Types
+
+```typescript
+import type { EarningsResponse } from '@even/shared';
+
+type TimeRange = '7d' | '30d' | '90d' | '1y';
+
+async function fetchEarnings(range: TimeRange = '30d'): Promise<EarningsResponse> {
+  const response = await fetch(`http://localhost:4000/earnings?range=${range}`);
+  return response.json();
+}
+
+// Usage with chart library
+async function prepareChartData(range: TimeRange) {
+  const earnings = await fetchEarnings(range);
+
+  return earnings.data.map(day => ({
+    date: new Date(day.date),
+    music: day.byCategory.music / 100,
+    video: day.byCategory.video / 100,
+    merch: day.byCategory.merch / 100,
+    experience: day.byCategory.experience / 100,
+  }));
+}
+```
+
+### React Query Example
+
+```typescript
+import { useQuery } from '@tanstack/react-query';
+
+function useEarnings(range: TimeRange = '30d') {
+  return useQuery({
+    queryKey: ['earnings', range],
+    queryFn: () => fetchEarnings(range),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+}
+
+// In component
+function EarningsChart() {
+  const { data, isLoading, error } = useEarnings('30d');
+
+  if (isLoading) return <Skeleton />;
+  if (error) return <Error message={error.message} />;
+
+  return <StackedAreaChart data={data.data} />;
+}
+```
+
+## Notes
+
+### Currency
+
+All monetary values are returned in **cents** to avoid floating-point precision issues. Divide by 100 to convert to dollars for display.
+
+```javascript
+const displayAmount = (cents) => `$${(cents / 100).toLocaleString()}`;
+```
+
+### Revenue Split
+
+The EVEN platform operates on an **87/13 revenue split**:
+- **87%** goes to the artist (`artistCut`)
+- **13%** is the platform fee (`platformFee`)
+
+### Change Percent
+
+The `changePercent` field compares the current period to the previous period of the same length:
+- `7d` compares to the 7 days before
+- `30d` compares to the previous 30 days
+- etc.
+
+A positive value indicates growth, negative indicates decline.
+
+## Related Endpoints
+
+- [GET /artist](/api/endpoints/artist) - Get artist profile with total earnings
+- [GET /products](/api/endpoints/products) - List products with individual earnings

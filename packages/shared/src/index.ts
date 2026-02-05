@@ -84,6 +84,29 @@ export {
 	type EngagementData,
 } from "./schemas/engagement.js";
 
+// Documentation schemas
+export {
+	baseFrontmatterSchema,
+	documentationCategorySchema,
+	documentationPageSchema,
+	adrStatusSchema,
+	adrFrontmatterSchema,
+	adrSchema,
+	manualDifficultySchema,
+	userManualFrontmatterSchema,
+	diagramTypeSchema,
+	searchIndexEntrySchema,
+	type BaseFrontmatter,
+	type DocumentationCategory,
+	type DocumentationPage,
+	type ADRStatus,
+	type ADRFrontmatter,
+	type ManualDifficulty,
+	type UserManualFrontmatter,
+	type DiagramType,
+	type SearchIndexEntry,
+} from "./schemas/docs.js";
+
 // Utilities
 export {
 	formatCurrency,

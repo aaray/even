@@ -1,0 +1,98 @@
+---
+title: Components
+description: Detailed documentation of EVEN platform components
+---
+
+import { DiagramViewer } from '@/components/DiagramViewer'
+
+# Component Architecture
+
+The EVEN platform is organized as a monorepo with multiple applications and shared packages. This page provides an overview of all components and their relationships.
+
+## Container Diagram
+
+<DiagramViewer
+  diagram={`graph TB
+    subgraph browser[Browser]
+        webapp[Web App<br/>Next.js 15 + React 19<br/>Artist Dashboard UI]
+        storybook[Storybook<br/>Component Library<br/>Documentation]
+    end
+
+    subgraph server[Server]
+        api[API Server<br/>Fastify 5.2<br/>REST Endpoints]
+    end
+
+    subgraph packages[Shared Packages]
+        ui[UI Components<br/>@even/ui<br/>shadcn/ui + Tailwind]
+        shared[Shared Types<br/>@even/shared<br/>Zod Schemas]
+    end
+
+    subgraph data[Data Layer]
+        db[(MongoDB<br/>Document Store)]
+    end
+
+    subgraph external[External Services]
+        payment[Payment API]
+        media[Media CDN]
+    end
+
+    webapp --> api
+    webapp --> ui
+    webapp --> shared
+    storybook --> ui
+    api --> shared
+    api --> db
+    api --> payment
+    api --> media
+
+    classDef browser fill:#1e1b4b,stroke:#8b5cf6,color:#fff
+    classDef server fill:#064e3b,stroke:#10b981,color:#fff
+    classDef package fill:#1e3a5f,stroke:#3b82f6,color:#fff
+    classDef data fill:#451a03,stroke:#f97316,color:#fff
+    classDef external fill:#1f2937,stroke:#6b7280,color:#fff
+
+    class webapp,storybook browser
+    class api server
+    class ui,shared package
+    class db data
+    class payment,media external`}
+  title="Container Diagram"
+  nodeLinks={{
+    webapp: '/architecture/components/web-app',
+    api: '/architecture/components/api',
+    ui: '/architecture/components/shared-packages',
+    shared: '/architecture/components/shared-packages',
+  }}
+/>
+
+## Applications
+
+### Frontend Applications
+
+| App | Package | Port | Description |
+|-----|---------|------|-------------|
+| [Web App](/architecture/components/web-app) | `@even/web` | 3000 | Main artist dashboard |
+| Storybook | `@even/storybook` | 6006 | Component documentation |
+| [Docs](/architecture/components/web-app) | `@even/docs` | 3001 | This documentation site |
+
+### Backend Applications
+
+| App | Package | Port | Description |
+|-----|---------|------|-------------|
+| [API Server](/architecture/components/api) | `@even/api` | 4000 | REST API endpoints |
+
+## Shared Packages
+
+| Package | Description |
+|---------|-------------|
+| [`@even/ui`](/architecture/components/shared-packages) | Reusable UI components (shadcn/ui based) |
+| [`@even/shared`](/architecture/components/shared-packages) | TypeScript types and Zod schemas |
+| `@even/docs-content` | Documentation assets (diagrams, images) |
+
+## Component Details
+
+Click on any component in the diagram above or use the links below:
+
+- [Web App](/architecture/components/web-app) - The main Next.js dashboard
+- [API Server](/architecture/components/api) - The Fastify backend
+- [Shared Packages](/architecture/components/shared-packages) - Reusable code

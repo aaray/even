@@ -1,0 +1,75 @@
+---
+title: "ADR-003: MADR Format for ADRs"
+description: "Decision to use the MADR (Markdown Any Decision Records) format for ADRs"
+---
+
+import { ADRStatusBadge } from '@/components/ADRStatusBadge'
+
+# ADR-003: MADR Format for Architecture Decision Records
+
+<div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-zinc-400">
+  <ADRStatusBadge status="accepted" />
+  <span>Date: 2026-02-05</span>
+  <span>Decision Makers: Development Team</span>
+</div>
+
+## Context
+
+Architecture Decision Records (ADRs) help preserve institutional knowledge about why architectural decisions were made. We need a consistent format that:
+- Captures necessary context for future readers
+- Documents alternatives that were considered
+- Explains trade-offs and consequences
+- Supports a clear lifecycle (proposed → accepted → deprecated/superseded)
+
+## Decision
+
+We will use **MADR (Markdown Any Decision Records) v3.0** format for all ADRs.
+
+The format includes these sections:
+1. **Title** - ADR number and descriptive title
+2. **Status** - proposed, accepted, deprecated, or superseded
+3. **Context** - Problem description and constraints
+4. **Decision** - What was decided (active voice)
+5. **Consequences** - Positive and negative outcomes
+6. **Alternatives Considered** - Other options and why rejected
+7. **Related Decisions** - Links to related ADRs
+
+## Consequences
+
+### Positive
+
+- **Widely adopted** - MADR is an industry-standard format
+- **Comprehensive** - Captures all relevant decision context
+- **Markdown-native** - Works perfectly with MDX documentation
+- **Lifecycle support** - Clear status progression
+- **Searchable** - Structured format enables consistent search
+
+### Negative
+
+- **Verbose** - More sections than minimal formats
+- **Template overhead** - Authors must fill all sections
+- **Consistency enforcement** - Requires review to maintain quality
+
+## Alternatives Considered
+
+### Nygard Format
+
+The original, minimal ADR format.
+
+**Rejected because**: Too brief, lacks alternatives section that helps understand decision context.
+
+### Y-statements
+
+Very concise format: "In the context of X, facing Y, we decided Z, to achieve A, accepting B."
+
+**Rejected because**: Too terse for team understanding, lacks structure for complex decisions.
+
+### Custom Format
+
+Design our own ADR format.
+
+**Rejected because**: Reinventing the wheel, MADR already well-designed.
+
+## Related Decisions
+
+- [ADR-001: Use Nextra for Documentation](/adr/001-use-nextra-for-docs) - Where ADRs are hosted

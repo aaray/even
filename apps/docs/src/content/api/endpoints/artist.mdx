@@ -1,0 +1,96 @@
+---
+title: Artist Endpoint
+description: Retrieve artist profile information
+---
+
+# GET /artist
+
+Retrieve the authenticated artist's profile information including earnings, fan metrics, and engagement data.
+
+## Request
+
+```http
+GET /artist HTTP/1.1
+Host: localhost:4000
+```
+
+### Headers
+
+| Header | Required | Description |
+|--------|----------|-------------|
+| `Accept` | No | `application/json` (default) |
+
+### Query Parameters
+
+None.
+
+## Response
+
+### Success Response
+
+**Status**: `200 OK`
+
+```json
+{
+  "id": "artist_001",
+  "name": "Nova Chen",
+  "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=NovaChen",
+  "bio": "Independent artist creating sounds that blur the lines between electronic, R&B, and experimental pop.",
+  "verified": true,
+  "totalEarnings": 247832.50,
+  "revenueRetainedPercent": 87,
+  "totalFans": 12847,
+  "engagementRate": 8.4,
+  "joinedAt": "2022-03-15T00:00:00Z"
+}
+```
+
+### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique artist identifier |
+| `name` | string | Artist display name |
+| `avatarUrl` | string | URL to artist avatar image |
+| `bio` | string | Artist biography |
+| `verified` | boolean | Whether the artist is verified |
+| `totalEarnings` | number | Total lifetime earnings in dollars |
+| `revenueRetainedPercent` | number | Percentage of revenue retained by artist |
+| `totalFans` | number | Total fan count |
+| `engagementRate` | number | Current engagement rate percentage |
+| `joinedAt` | string | ISO 8601 timestamp of when artist joined |
+
+## Example
+
+### cURL
+
+```bash
+curl http://localhost:4000/artist
+```
+
+### JavaScript (fetch)
+
+```javascript
+const response = await fetch('http://localhost:4000/artist');
+const artist = await response.json();
+
+console.log(`Artist: ${artist.name}`);
+console.log(`Total Earnings: $${artist.totalEarnings.toLocaleString()}`);
+console.log(`Fans: ${artist.totalFans.toLocaleString()}`);
+```
+
+### TypeScript with Types
+
+```typescript
+import type { Artist } from '@even/shared';
+
+async function getArtist(): Promise<Artist> {
+  const response = await fetch('http://localhost:4000/artist');
+  return response.json();
+}
+```
+
+## Related Endpoints
+
+- [GET /earnings](/api/endpoints/earnings) - Get detailed earnings data
+- [GET /products](/api/endpoints/products) - List artist products

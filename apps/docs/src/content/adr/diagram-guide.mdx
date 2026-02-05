@@ -1,0 +1,285 @@
+---
+title: Diagram Guide for ADRs
+description: How to embed Mermaid diagrams in Architecture Decision Records
+---
+
+import { DiagramViewer } from '@/components/DiagramViewer'
+
+# Embedding Diagrams in ADRs
+
+Mermaid diagrams help visualize architecture decisions. This guide shows common patterns for ADR documentation.
+
+## Supported Diagram Types
+
+### Flowcharts
+
+Show processes, workflows, or decision trees:
+
+```mermaid
+flowchart TD
+    A[Start] --> B{Decision Point}
+    B -->|Option 1| C[Outcome 1]
+    B -->|Option 2| D[Outcome 2]
+    C --> E[End]
+    D --> E
+```
+
+**Syntax:**
+
+```
+flowchart TD
+    A[Start] --> B{Decision Point}
+    B -->|Option 1| C[Outcome 1]
+    B -->|Option 2| D[Outcome 2]
+```
+
+### Sequence Diagrams
+
+Show interactions between components:
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant W as Web App
+    participant A as API
+    participant D as Database
+
+    U->>W: Click button
+    W->>A: POST /action
+    A->>D: Query
+    D-->>A: Result
+    A-->>W: Response
+    W-->>U: Update UI
+```
+
+**Syntax:**
+
+```
+sequenceDiagram
+    participant U as User
+    participant W as Web App
+    participant A as API
+
+    U->>W: Click button
+    W->>A: POST /action
+    A-->>W: Response
+```
+
+### C4 Context Diagrams
+
+Show system context and external actors:
+
+```mermaid
+C4Context
+    title System Context Diagram
+
+    Person(artist, "Artist", "Creates and sells content")
+    System(even, "EVEN Platform", "Artist dashboard")
+    System_Ext(payment, "Payment Provider", "Handles transactions")
+    System_Ext(storage, "Cloud Storage", "Stores media files")
+
+    Rel(artist, even, "Uses")
+    Rel(even, payment, "Processes payments")
+    Rel(even, storage, "Stores files")
+```
+
+**Syntax:**
+
+```
+C4Context
+    Person(id, "Label", "Description")
+    System(id, "Label", "Description")
+    System_Ext(id, "Label", "Description")
+    Rel(from, to, "Description")
+```
+
+### C4 Container Diagrams
+
+Show internal system structure:
+
+```mermaid
+C4Container
+    title Container Diagram
+
+    Container(web, "Web App", "Next.js", "User interface")
+    Container(api, "API", "Fastify", "Business logic")
+    ContainerDb(db, "Database", "PostgreSQL", "Data storage")
+
+    Rel(web, api, "HTTP/JSON")
+    Rel(api, db, "SQL")
+```
+
+### State Diagrams
+
+Show status transitions (great for ADR status workflow):
+
+```mermaid
+stateDiagram-v2
+    [*] --> Proposed
+    Proposed --> Accepted : Approved
+    Proposed --> Proposed : Revised
+    Accepted --> Deprecated : Outdated
+    Accepted --> Superseded : Replaced
+    Deprecated --> [*]
+    Superseded --> [*]
+```
+
+**Syntax:**
+
+```
+stateDiagram-v2
+    [*] --> State1
+    State1 --> State2 : Event
+    State2 --> [*]
+```
+
+### Entity Relationship Diagrams
+
+Show data models:
+
+```mermaid
+erDiagram
+    ARTIST ||--o{ PRODUCT : creates
+    PRODUCT ||--o{ ORDER : contains
+    FAN ||--o{ ORDER : places
+
+    ARTIST {
+        string id PK
+        string name
+        string email
+    }
+    PRODUCT {
+        string id PK
+        string title
+        int price
+    }
+```
+
+## Best Practices
+
+### Keep Diagrams Simple
+
+Aim for 5-10 elements max. Break complex diagrams into multiple simpler ones.
+
+**Too Complex:**
+```mermaid
+flowchart LR
+    A --> B --> C --> D --> E --> F --> G --> H
+```
+
+**Better - Split into sections:**
+```mermaid
+flowchart LR
+    subgraph Phase1 [Phase 1]
+        A --> B --> C
+    end
+    subgraph Phase2 [Phase 2]
+        D --> E --> F
+    end
+    C --> D
+```
+
+### Use Consistent Styling
+
+Stick to these conventions:
+
+- **Rectangles** `[text]` for processes/components
+- **Diamonds** `{text}` for decisions
+- **Rounded** `(text)` for start/end
+- **Cylinders** `[(text)]` for databases
+
+### Add Labels to Connections
+
+Always label arrows to explain the relationship:
+
+```mermaid
+flowchart LR
+    A[Client] -->|HTTP Request| B[Server]
+    B -->|JSON Response| A
+```
+
+### Use Subgraphs for Grouping
+
+Group related elements:
+
+```mermaid
+flowchart TB
+    subgraph Frontend
+        A[Web App]
+        B[Mobile App]
+    end
+    subgraph Backend
+        C[API Gateway]
+        D[Services]
+    end
+    A --> C
+    B --> C
+    C --> D
+```
+
+## Common ADR Diagram Patterns
+
+### Option Comparison
+
+```mermaid
+flowchart LR
+    subgraph opt1 [Option 1: Library A]
+        A1[Pro: Fast]
+        A2[Con: Large bundle]
+    end
+    subgraph opt2 [Option 2: Library B]
+        B1[Pro: Small]
+        B2[Con: Less features]
+    end
+    subgraph decision [Decision]
+        C[Chose Option 1]
+    end
+    opt1 --> decision
+    opt2 -.-> decision
+```
+
+### Migration Path
+
+```mermaid
+flowchart LR
+    A[Current State] --> B[Step 1: Setup]
+    B --> C[Step 2: Migrate]
+    C --> D[Step 3: Validate]
+    D --> E[Target State]
+```
+
+### Architecture Decision
+
+```mermaid
+C4Context
+    title Decision: Use Nextra for Docs
+
+    Person(dev, "Developer", "Writes documentation")
+
+    System(nextra, "Nextra", "Documentation framework")
+    System_Boundary(b1, "Alternatives Considered") {
+        System_Ext(docusaurus, "Docusaurus", "Not chosen")
+        System_Ext(gitbook, "GitBook", "Not chosen")
+    }
+
+    Rel(dev, nextra, "Uses", "MDX")
+```
+
+## Troubleshooting
+
+### Diagram Not Rendering
+
+1. Check syntax - use the [Mermaid Live Editor](https://mermaid.live)
+2. Ensure code block uses `mermaid` language tag
+3. Check for special characters that need escaping
+
+### Layout Issues
+
+- Use `TB` (top-bottom) or `LR` (left-right) for direction
+- Add `%%{init: {'theme': 'dark'}}%%` for dark mode
+
+## Related
+
+- [ADR Index](/adr) - Browse all ADRs
+- [How to Create ADR](/adr/how-to-create) - ADR creation guide
+- [Architecture Diagrams](/architecture) - System diagrams

@@ -1,5 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
 
+// Determine which app to test based on TEST_APP env var
+const testApp = process.env.TEST_APP || "web";
+const baseURLs: Record<string, string> = {
+	web: "http://localhost:3000",
+	docs: "http://localhost:3001",
+};
+
 export default defineConfig({
 	testDir: "./tests",
 	fullyParallel: true,
@@ -8,7 +15,7 @@ export default defineConfig({
 	workers: process.env.CI ? 1 : undefined,
 	reporter: "html",
 	use: {
-		baseURL: "http://localhost:3000",
+		baseURL: baseURLs[testApp],
 		trace: "on-first-retry",
 		screenshot: "only-on-failure",
 	},
@@ -26,18 +33,28 @@ export default defineConfig({
 			use: { ...devices["Desktop Safari"] },
 		},
 	],
-	webServer: [
-		{
-			command: "bun run --cwd ../apps/api dev",
-			url: "http://localhost:4000/health",
-			reuseExistingServer: !process.env.CI,
-			timeout: 120 * 1000,
-		},
-		{
-			command: "bun run --cwd ../apps/web dev",
-			url: "http://localhost:3000",
-			reuseExistingServer: !process.env.CI,
-			timeout: 120 * 1000,
-		},
-	],
+	webServer:
+		testApp === "docs"
+			? [
+					{
+						command: "bun run --cwd ../apps/docs dev",
+						url: "http://localhost:3001",
+						reuseExistingServer: !process.env.CI,
+						timeout: 120 * 1000,
+					},
+				]
+			: [
+					{
+						command: "bun run --cwd ../apps/api dev",
+						url: "http://localhost:4000/health",
+						reuseExistingServer: !process.env.CI,
+						timeout: 120 * 1000,
+					},
+					{
+						command: "bun run --cwd ../apps/web dev",
+						url: "http://localhost:3000",
+						reuseExistingServer: !process.env.CI,
+						timeout: 120 * 1000,
+					},
+				],
 });

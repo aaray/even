@@ -1,0 +1,80 @@
+---
+title: "ADR-001: Use Nextra for Documentation"
+description: "Decision to use Nextra as the documentation framework for the EVEN platform"
+---
+
+import { ADRStatusBadge } from '@/components/ADRStatusBadge'
+
+# ADR-001: Use Nextra for Documentation
+
+<div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-zinc-400">
+  <ADRStatusBadge status="accepted" />
+  <span>Date: 2026-02-05</span>
+  <span>Decision Makers: Development Team</span>
+</div>
+
+## Context
+
+The EVEN platform needs a documentation site to house:
+- Architecture documentation with interactive diagrams
+- Architecture Decision Records (ADRs)
+- User manuals and guides
+- API reference documentation
+
+The documentation system must:
+- Integrate with our existing Next.js/Bun monorepo
+- Support MDX for rich content with React components
+- Provide built-in search functionality
+- Be easy to maintain alongside code (docs-as-code)
+- Match our dark theme and brand
+
+## Decision
+
+We will use **Nextra 4.x** as our documentation framework.
+
+## Consequences
+
+### Positive
+
+- **Native Next.js integration** - Nextra is built on Next.js, so it fits perfectly in our monorepo
+- **MDX support** - Can embed React components (diagrams, interactive examples) directly in docs
+- **Built-in search** - FlexSearch provides fast, client-side full-text search out of the box
+- **Minimal configuration** - Works with App Router and has sensible defaults
+- **Active community** - Well-maintained with good documentation
+
+### Negative
+
+- **Learning curve** - Team needs to learn Nextra-specific conventions
+- **Theme constraints** - Some customization requires understanding Nextra internals
+- **Version coupling** - Updates may require testing with our Next.js version
+
+## Alternatives Considered
+
+### Docusaurus
+
+Popular documentation framework with many features.
+
+**Rejected because**: Uses React 17 and Webpack, not compatible with our Next.js 15 + Bun monorepo without significant configuration.
+
+### VitePress
+
+Fast, Vue-based documentation generator.
+
+**Rejected because**: Vue-based, cannot share React components with rest of monorepo.
+
+### Mintlify
+
+Beautiful hosted documentation service.
+
+**Rejected because**: External dependency, ongoing cost, less control over customization.
+
+### Raw MDX + Next.js
+
+Building custom documentation using Next.js MDX support.
+
+**Rejected because**: Would require reimplementing navigation, search, TOC, and other features that Nextra provides out of the box.
+
+## Related Decisions
+
+- [ADR-002: Use Mermaid for Diagrams](/adr/002-use-mermaid-for-diagrams) - Diagrams in documentation
+- [ADR-003: MADR Format for ADRs](/adr/003-madr-format-for-adrs) - ADR structure

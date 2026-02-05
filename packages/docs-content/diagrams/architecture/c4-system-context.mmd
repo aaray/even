@@ -1,0 +1,35 @@
+graph TB
+    subgraph ext[External Systems]
+        payment[Payment Processor]
+        email[Email Service]
+        cdn[CDN / Media Storage]
+    end
+
+    subgraph users[Users]
+        artist[Artist<br/>Manages content, views analytics]
+        fan[Fan<br/>Purchases content, engages]
+        admin[Admin<br/>Platform management]
+    end
+
+    subgraph even[EVEN Platform]
+        web[Web Application<br/>Next.js Dashboard]
+        api[API Server<br/>Fastify REST API]
+        db[(Database<br/>MongoDB)]
+    end
+
+    artist --> web
+    fan --> web
+    admin --> web
+    web --> api
+    api --> db
+    api --> payment
+    api --> email
+    api --> cdn
+
+    classDef external fill:#1e3a5f,stroke:#3b82f6,color:#fff
+    classDef user fill:#4c1d95,stroke:#8b5cf6,color:#fff
+    classDef system fill:#064e3b,stroke:#10b981,color:#fff
+
+    class payment,email,cdn external
+    class artist,fan,admin user
+    class web,api,db system

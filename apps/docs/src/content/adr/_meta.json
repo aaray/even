@@ -1,0 +1,12 @@
+{
+	"index": "Overview",
+	"001-use-nextra-for-docs": "ADR-001: Nextra",
+	"002-use-mermaid-for-diagrams": "ADR-002: Mermaid",
+	"003-madr-format-for-adrs": "ADR-003: MADR Format",
+	"---": {
+		"type": "separator"
+	},
+	"how-to-create": "How to Create an ADR",
+	"diagram-guide": "Diagram Guide",
+	"status-workflow": "Status Workflow"
+}

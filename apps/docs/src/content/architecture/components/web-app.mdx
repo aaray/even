@@ -1,0 +1,92 @@
+---
+title: Web App
+description: Next.js frontend application for the EVEN Artist Dashboard
+---
+
+# Web App (`@even/web`)
+
+The Web App is the main frontend application, providing the artist dashboard interface.
+
+## Technology Stack
+
+| Layer | Technology | Version |
+|-------|------------|---------|
+| Framework | Next.js | 15.x |
+| UI Library | React | 19.x |
+| Styling | Tailwind CSS | 3.4.x |
+| Components | shadcn/ui | via @even/ui |
+| Data Fetching | TanStack Query | 5.x |
+| Charts | Recharts | 2.15.x |
+| i18n | next-intl | 4.x |
+| Animations | Framer Motion | 12.x |
+
+## Directory Structure
+
+```
+apps/web/
+├── src/
+│   ├── app/           # Next.js App Router pages
+│   │   ├── layout.tsx # Root layout
+│   │   ├── page.tsx   # Dashboard home
+│   │   └── [locale]/  # i18n routes
+│   ├── components/    # Feature components
+│   │   ├── dashboard/ # Dashboard-specific
+│   │   ├── charts/    # Chart components
+│   │   └── layout/    # Layout components
+│   ├── hooks/         # Custom React hooks
+│   ├── i18n/          # Internationalization
+│   └── lib/           # Utilities
+├── public/            # Static assets
+└── package.json
+```
+
+## Key Features
+
+### Dashboard
+- KPI cards showing key metrics
+- Earnings chart with time range selection
+- Product grid with filtering and sorting
+- Fan engagement metrics
+
+### Multi-Language Support
+- English and Spanish locales
+- Language persistence via localStorage
+- next-intl for routing and translations
+
+### Responsive Design
+- Mobile-first approach
+- Breakpoints: 375px - 1440px
+- WCAG 2.1 AA accessibility
+
+## Data Flow
+
+The web app fetches data from the API server using TanStack Query:
+
+```tsx
+// Example: Fetching artist data
+const { data: artist } = useQuery({
+  queryKey: ['artist'],
+  queryFn: () => fetch('/api/artist').then(r => r.json()),
+});
+```
+
+## Dependencies
+
+The web app depends on:
+- `@even/ui` - UI components
+- `@even/shared` - Type definitions and schemas
+- `@even/api` - Backend API (at runtime)
+
+## Configuration
+
+Key environment variables:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_API_URL` | API server URL | `http://localhost:4000` |
+
+## Related
+
+- [API Server](/architecture/components/api) - Backend that serves data
+- [Shared Packages](/architecture/components/shared-packages) - Shared code
+- [Data Flows](/architecture/data-flow) - How data moves through the app
